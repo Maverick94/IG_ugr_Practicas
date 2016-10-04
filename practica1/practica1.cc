@@ -95,7 +95,60 @@ void draw_axis()
 
 void draw_objects()
 {
+	_puntos3D v;
+	_triangulos3D t; 
+	_vertex3f puntos1, puntos2, puntos3, puntos4;
+	puntos1.x = 0.0;
+	puntos1.y = 0.0;
+ 	puntos1.z = 0.0;
 
+	puntos2.x = 2;
+	puntos2.y = 0;
+	puntos2.z = 0;
+	
+	puntos3.x = 0;
+	puntos3.y = 2;
+	puntos3.z = 0;
+
+
+	puntos4.x = 0;
+	puntos4.y = 0;
+	puntos4.z = 2;
+
+
+	t.vertices.push_back(puntos1);
+	t.vertices.push_back(puntos2);
+	t.vertices.push_back(puntos3);
+	t.vertices.push_back(puntos4);
+
+	//_triangulos3D t;
+
+	_vertex3i cara1,cara2,cara3,cara4;
+	cara1.x=4;
+	cara1.y=2;
+	cara1.z=3;
+
+	cara2.x=4;
+	cara2.y=1;
+	cara2.z=3;
+
+	cara3.x=4;
+	cara3.y=2;
+	cara3.z=1;
+
+	cara4.x=1;
+	cara4.y=2;
+	cara4.z=3;
+
+	t.caras.push_back(cara1);
+	t.caras.push_back(cara2);
+	t.caras.push_back(cara3);
+	t.caras.push_back(cara4);
+	/*t.caras.push_back(1);
+	t.caras.push_back(2);*/
+
+	//v.draw_puntos(1.0,0,0,25);
+	t.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
 }
 
 
