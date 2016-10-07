@@ -95,7 +95,7 @@ void draw_axis()
 
 void draw_objects()
 {
-	/*_puntos3D v;
+	_puntos3D v;
 	_triangulos3D t; 
 	_vertex3f puntos1, puntos2, puntos3, puntos4;
 	puntos1.x = 0.0;
@@ -139,23 +139,23 @@ void draw_objects()
 	cara4.x=3;
 	cara4.y=2;
 	cara4.z=1;
-*//*
+
 	t.caras.push_back(cara1);
 	t.caras.push_back(cara2);
 	t.caras.push_back(cara3);
-	t.caras.push_back(cara4);*/
+	t.caras.push_back(cara4);
 	/*t.caras.push_back(1);
 	t.caras.push_back(2);*/
 
 	//t.draw_puntos(1.0,0,0,12);
 	//t.draw_aristas(1.0,0,0,1.2);
-	//t.draw_solido(1,0,0);
-//	t.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
+	t.draw_solido(1,0,0);
+	//t.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
 
 	_cubo cubo1(1);
 	//cubo1.draw_puntos(1.0,0,0,12);
 	//cubo1.draw_aristas(1.0,0,0,1.2);
-	cubo1.draw_solido(1.0,0,0);
+	//cubo1.draw_solido(1.0,0,0);
 	//cubo1.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
 }
 

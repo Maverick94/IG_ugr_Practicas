@@ -68,7 +68,7 @@ void _triangulos3D::draw_aristas(float r, float g, float b, int grosor)
 
 void _triangulos3D::draw_solido(float r, float g, float b)
 {
-	glPolygonMode(GL_FRONT,GL_LINE);
+	glPolygonMode(GL_FRONT,GL_FILL);
 	glColor3f(r,g,b);
 	glBegin(GL_TRIANGLES);
 	
@@ -91,7 +91,7 @@ void _triangulos3D::draw_solido(float r, float g, float b)
 
 void _triangulos3D::draw_solido_ajedrez(float r1, float g1, float b1, float r2, float g2, float b2)
 {
-	glPolygonMode(GL_FRONT,GL_LINE);
+	glPolygonMode(GL_FRONT,GL_FILL);
 	glBegin(GL_TRIANGLES);
 	
       /*glVertex3f(vertices[caras[0].x].x, vertices[caras[0].x].y, vertices[caras[0].x].z); // V0
