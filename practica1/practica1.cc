@@ -16,7 +16,8 @@ using namespace std;
 GLfloat Observer_distance;
 GLfloat Observer_angle_x;
 GLfloat Observer_angle_y;
-
+int opcion=0;
+int modificador=0;
 // variables que controlan la ventana y la transformacion de perspectiva
 GLfloat Size_x,Size_y,Front_plane,Back_plane;
 
@@ -95,68 +96,43 @@ void draw_axis()
 
 void draw_objects()
 {
-	_puntos3D v;
-	_triangulos3D t; 
-	_vertex3f puntos1, puntos2, puntos3, puntos4;
-	puntos1.x = 0.0;
-	puntos1.y = 0.0;
- 	puntos1.z = 0.0;
-
-	puntos2.x = 2;
-	puntos2.y = 0;
-	puntos2.z = 0;
 	
-	puntos3.x = 0;
-	puntos3.y = 2;
-	puntos3.z = 0;
-
-
-	puntos4.x = 0;
-	puntos4.y = 0;
-	puntos4.z = 2;
-
-
-	t.vertices.push_back(puntos1);
-	t.vertices.push_back(puntos2);
-	t.vertices.push_back(puntos3);
-	t.vertices.push_back(puntos4);
-
-	//_triangulos3D t;
-
-	_vertex3i cara1,cara2,cara3,cara4;
-	cara1.x=4;
-	cara1.y=3;
-	cara1.z=2;
-
-	cara2.x=4;
-	cara2.y=3;
-	cara2.z=1;
-
-	cara3.x=4;
-	cara3.y=1;
-	cara3.z=2;
-
-	cara4.x=3;
-	cara4.y=2;
-	cara4.z=1;
-
-	t.caras.push_back(cara1);
-	t.caras.push_back(cara2);
-	t.caras.push_back(cara3);
-	t.caras.push_back(cara4);
-	/*t.caras.push_back(1);
-	t.caras.push_back(2);*/
-
-	//t.draw_puntos(1.0,0,0,12);
-	//t.draw_aristas(1.0,0,0,1.2);
-	t.draw_solido(1,0,0);
-	//t.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
-
 	_cubo cubo1(1);
-	//cubo1.draw_puntos(1.0,0,0,12);
-	//cubo1.draw_aristas(1.0,0,0,1.2);
-	//cubo1.draw_solido(1.0,0,0);
-	//cubo1.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
+	_piramide pi1(1,2);
+
+	//cubo1.draw_solido_ajedrez(1.0,0,0,0,1.0,0)
+	
+	switch(opcion)
+	{
+		case 0:
+			if(modificador==1)
+				cubo1.draw_puntos(1.0,0,0,12);
+			else
+				pi1.draw_puntos(1.0,0,0,12);
+			break;
+		case 1:
+			if(modificador==1)
+				cubo1.draw_aristas(1.0,0,0,1.2);
+			else
+				pi1.draw_aristas(1.0,0,0,1.2);
+			break;
+		case 2:
+			if(modificador==1)
+				cubo1.draw_solido(1.0,0,0);
+			else
+				pi1.draw_solido(1.0,0,0);	
+			break;
+		case 3:
+			if(modificador==1)
+				cubo1.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
+			else
+				pi1.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
+			break;
+
+	}
+
+
+
 }
 
 
@@ -206,7 +182,40 @@ void change_window_size(int Ancho1,int Alto1)
 
 void normal_key(unsigned char Tecla1,int x,int y)
 {
-	if (toupper(Tecla1)=='Q') exit(0);
+	switch (toupper(Tecla1))
+	{
+		case 'Q':
+			exit(0);
+			break;
+
+		case 'P':
+			opcion=0; //puntos
+			break;
+
+		case 'E':
+			opcion=1; //Alambre
+			break;
+
+		case 'S':
+			opcion=2; //Sólido
+			break;
+		case 'A':
+			opcion=3; //Ajedrez
+			break;
+
+		case '1':
+			modificador=1;
+			break;
+
+		case '2':
+			modificador=2;
+			break;
+
+	}
+
+
+
+
 }
 
 //***************************************************************************

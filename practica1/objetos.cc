@@ -46,8 +46,9 @@ _triangulos3D::_triangulos3D()
 
 void _triangulos3D::draw_aristas(float r, float g, float b, int grosor)
 {
+	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 	glColor3f(r,g,b);
-	glBegin(GL_LINES);
+	glBegin(GL_TRIANGLES);
 	
       /*glVertex3f(vertices[caras[0].x].x, vertices[caras[0].x].y, vertices[caras[0].x].z); // V0
       glVertex3f(1.0f, 1.0f, 0.0f); // V1
@@ -166,60 +167,59 @@ _cubo::_cubo(float tam)
 	vertices.push_back(v7);
 	vertices.push_back(v8);
 
-	//inicializacion de las caras de los triangulos
+	//inicializacion de las caras de los triangulos NOTA:  Hay que restar en 1 los vertices que se toman. Ya que nosotros estamos accediendo a los indices, no a los vertices en sí.
 
 
 	_vertex3i c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12;
 	
 
-	c1.x=4;
-	c1.y=8;
-	c1.z=3;
+	c1.x=3;
+	c1.y=7;
+	c1.z=2;
 
-	c2.x=4;
-	c2.y=5;
-	c2.z=8;
+	c2.x=3;
+	c2.y=4;
+	c2.z=7;
 
-	c3.x=4;
-	c3.y=3;
-	c3.z=1;
+	c3.x=3;
+	c3.y=2;
+	c3.z=0;
 
-	c4.x=1;
-	c4.y=2;
-	c4.z=3;
+	c4.x=0;
+	c4.y=1;
+	c4.z=2;
 
-	c5.x=1;
-	c5.y=2;
-	c5.z=7;
+	c5.x=0;
+	c5.y=1;
+	c5.z=6;
 
-	c6.x=1;
-	c6.y=7;
-	c6.z=6;
+	c6.x=0;
+	c6.y=6;
+	c6.z=5;
 	
-	c7.x=1;
-	c7.y=5;
-	c7.z=6;
+	c7.x=0;
+	c7.y=4;
+	c7.z=5;
 
-	c8.x=1;
-	c8.y=5;
-	c8.z=4;
+	c8.x=0;
+	c8.y=4;
+	c8.z=3;
 
-	c9.x=5;
-	c9.y=6;
-	c9.z=8;
+	c9.x=4;
+	c9.y=5;
+	c9.z=7;
 
-	c10.x=6;
-	c10.y=7;
-	c10.z=8;
+	c10.x=5;
+	c10.y=6;
+	c10.z=7;
 	
-	c11.x=8;
-	c11.y=7;
-	c11.z=2;
+	c11.x=7;
+	c11.y=6;
+	c11.z=1;
 
-	c12.x=8;
-	c12.y=2;
-	c12.z=3;
-
+	c12.x=7;
+	c12.y=1;
+	c12.z=2;
 
 	caras.push_back(c1);
 	caras.push_back(c2);
@@ -242,5 +242,66 @@ _cubo::_cubo(float tam)
 
 _piramide::_piramide(float tam, float al)
 {
+	//incializacion de los puntos en el eje de coordenadas x,y,z 
+	_vertex3f v0,v1,v2,v3,v4;
+
+	v0.x = 0.0;
+	v0.y = 0.0;
+	v0.z = 0.0;
+
+	v1.x = tam;
+	v1.y = 0.0;
+	v1.z = 0.0;
+
+	v2.x = tam/2;
+	v2.y = al;
+	v2.z = tam/2;
+
+	v3.x = 0.0;
+	v3.y = 0.0;
+	v3.z = tam;
+
+	v4.x = tam;
+	v4.y = 0.0;
+	v4.z = tam;
+
+	vertices.push_back(v0);
+	vertices.push_back(v1);
+	vertices.push_back(v2);
+	vertices.push_back(v3);
+	vertices.push_back(v4);
+
+	_vertex3i c1,c2,c3,c4,c5,c6;
+
+	c1.x = 0;
+	c1.y = 3;
+	c1.z = 1;
+
+	c2.x = 0;
+	c2.y = 1;
+	c2.z = 2;
+
+	c3.x = 0;
+	c3.y = 2;
+	c3.z = 3;
+
+	c4.x = 3;
+	c4.y = 4;
+	c4.z = 1;
+
+	c5.x = 3;
+	c5.y = 4;
+	c5.z = 2;
+
+	c6.x = 4;
+	c6.y = 1;
+	c6.z = 2;
+
+	caras.push_back(c1);
+	caras.push_back(c2);
+	caras.push_back(c3);
+	caras.push_back(c4);
+	caras.push_back(c5);
+	caras.push_back(c6);
 
 }
