@@ -16,6 +16,7 @@ using namespace std;
 GLfloat Observer_distance;
 GLfloat Observer_angle_x;
 GLfloat Observer_angle_y;
+//Variables para controlar las teclas
 int opcion=0;
 int modificador=0;
 // variables que controlan la ventana y la transformacion de perspectiva
@@ -203,11 +204,11 @@ void normal_key(unsigned char Tecla1,int x,int y)
 			opcion=3; //Ajedrez
 			break;
 
-		case '1':
+		case '1':	//Cubo
 			modificador=1;
 			break;
 
-		case '2':
+		case '2':	//Piramide
 			modificador=2;
 			break;
 
