@@ -213,8 +213,7 @@ void normal_key(unsigned char Tecla1,int x,int y)
 
 	}
 
-
-
+	glutPostRedisplay();
 
 }
 
