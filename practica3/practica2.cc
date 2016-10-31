@@ -106,13 +106,7 @@ void draw_axis()
 
 void draw_objects()
 {
-	//b.draw_puntos(1.0,0,0,10);
-
-
-//b.draw_aristas(1.0,0,0,1.2);
-//b.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
-
-
+	
 	switch(opcion)
 		{
 			case 0:
