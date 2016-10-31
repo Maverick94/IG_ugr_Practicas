@@ -293,3 +293,73 @@ _piramide::_piramide(float tam, float al)
 	caras.push_back(c6);
 
 }
+
+
+//***************
+// Clase PLY
+//***************
+/*
+
+modeloPLY::modeloPLY()
+{
+	puntos = 0;
+	triangulos = 0;
+}
+
+_puntos3D modeloPLY::getPuntos()
+{
+	return puntos;
+}
+
+_triangulos3D getTriangulo()
+{
+	return triangulos;
+}
+
+void modeloPLY::setPuntos(_puntos3D p)
+{
+	puntos=p;
+}
+
+void modeloPLY::setTriangulo(_triangulos3D t)
+{
+	triangulos=t;
+}
+
+void modeloPLY::cargarModelo(char* filename)
+{
+	_file_ply archivo;
+	vector<float> vertex;
+	vector<int> face;
+	_vertex3f v;
+	_vertex3i f;
+
+	archivo.open(filename);
+	archivo.read(vertex,face);
+	archivo.close();
+
+	for(int i=0; i<vertex.size(); i=i+3)
+	{
+		v.x=vertex[i];
+		v.y=vertex[i+1];
+		v.z=vertex[i+2];
+
+		puntos.vertices.push_back(v);	
+	}
+
+	for(int i=0; i<face.size(); i=i+3)
+	{
+		f.x=face[i];
+		f.y=face[i+1];
+		f.z=face[i+2];
+
+		triangulos.caras.push_back(f);
+	}
+
+
+}
+
+void modeloPLY::pintarPuntos(float r, float g, float b, int grosor)
+{
+	puntos.draw_puntos(r,g,b,grosor);
+}*/

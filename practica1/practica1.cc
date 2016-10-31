@@ -19,6 +19,8 @@ GLfloat Observer_angle_y;
 //Variables para controlar las teclas
 int opcion=0;
 int modificador=0;
+_cubo cubo1(1);
+_piramide pi1(1,2);
 // variables que controlan la ventana y la transformacion de perspectiva
 GLfloat Size_x,Size_y,Front_plane,Back_plane;
 
@@ -97,11 +99,6 @@ void draw_axis()
 
 void draw_objects()
 {
-	
-	_cubo cubo1(1);
-	_piramide pi1(1,2);
-
-	//cubo1.draw_solido_ajedrez(1.0,0,0,0,1.0,0)
 	
 	switch(opcion)
 	{
@@ -304,7 +301,7 @@ int main(int argc, char **argv)
 
 	// llamada para crear la ventana, indicando el titulo (no se visualiza hasta que se llama
 	// al bucle de eventos)
-	glutCreateWindow("PRACTICA 1");
+	glutCreateWindow("PRACTICA 2");
 
 	// asignación de la funcion llamada "dibujar" al evento de dibujo
 	glutDisplayFunc(draw);
@@ -314,6 +311,8 @@ int main(int argc, char **argv)
 	glutKeyboardFunc(normal_key);
 	// asignación de la funcion llamada "tecla_Especial" al evento correspondiente
 	glutSpecialFunc(special_key);
+
+	//Con estas funciones, lo que estamos haciendo es pasar las funciones como parámetros.
 
 	// funcion de inicialización
 	initialize();
