@@ -753,13 +753,12 @@ void modeloJerarquico::pintarModelo()
 
     //Palo principal
 
-    for(int i=0; i<4; i++)
+   for(int i=0; i<4; i++)
     {
       glPushMatrix();
           glTranslatef(0,0.6+i,0);
-          glRotatef(angulo,0,1,0);
           glScalef(0.5,1,0.5);
-          cubo->draw_aristas(0,1,0,1);
+          cubo->draw_aristas(1,0.7,0,1);
       glPopMatrix();
     }
 
@@ -772,24 +771,59 @@ void modeloJerarquico::pintarModelo()
 		glPopMatrix();
 
 		glPushMatrix();
-		//	glTranslatef(-0.3,4.2,0);
+
 
 			glTranslatef(0,4.8,0);
+			glRotatef(angulo,0,1,0);
 			glScalef(0.5,1.2,0.5);
 
 			pira->draw_solido(0,0,1);
 		glPopMatrix();
 
 
-		//Pala que soporta el gancho
+		//Palo cruzado.
+		for(int i=0; i<4; i++)
+		{
+			glPushMatrix();
+					glRotatef(angulo,0,1,0);
+					glTranslatef(0,4.4,0.7+i);
+
+					glRotatef(90,1,0,0);
+					glScalef(0.3,1,0.3);
+					cubo->draw_aristas(1,0.7,0,1);
+			glPopMatrix();
+		}
 
 		glPushMatrix();
+				glRotatef(angulo,0,1,0);
+				glTranslatef(0,4.4,4.5);
 
-			glTranslatef(-0.4,-0.1,0);
-			glTranslatef(0,4.8,0);
-			glScalef(0.5,0.8,0.5);
-			pira->draw_aristas(0,1,0,0);
+				glRotatef(90,1,0,0);
+				glScalef(0.3,0.7,0.3);
+				pira->draw_aristas(1,0.7,0,1);
 		glPopMatrix();
 
+		//Compensador
+		glPushMatrix();
+				glRotatef(angulo,0,1,0);
+				glTranslatef(0,4.4,-0.7);
+				glRotatef(90,1,0,0);
+				glScalef(0.3,1,0.3);
+				cubo->draw_aristas(1,0.7,0,1);
+		glPopMatrix();
+
+		glPushMatrix();
+			  glRotatef(angulo,0,1,0);
+				glTranslatef(0,4.4,-1.3);
+				glScalef(0.6,0.8,0.6);
+				cubo->draw_solido(0.8,0,0);
+		glPopMatrix();
+
+
+		//Carril de la grua.
+
+		glPushMatrix();
+			
+		glPopMatrix();
 
 }
