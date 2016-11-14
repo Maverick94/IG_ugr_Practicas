@@ -69,19 +69,11 @@ class _piramide: public _triangulos3D
 //*************************************************************************
 class modeloPly: public _triangulos3D
 {
-	
+
 	public:
 
 		modeloPly();
 		void cargarModelo (char* filename);
-		// void pintarPuntos(float r, float g, float b, int grosor);
-		// void pintarAristas(float r, float g, float b, int grosor);
-		// void pintarSolido(float r, float g, float b, int grosor);
-		// void pintarAjedrez(float r1, float g1, float b1, float r2, float g2, float b2);
-
-
-
-
 };
 
 class modeloPlyRevolucion: public modeloPly
@@ -102,7 +94,6 @@ class modeloPlyRevolucion: public modeloPly
 class modeloPlyBarrido: public modeloPly
 {
 	private:
-		//_vertex3f rotarPunto(_vertex3f p, float ang);
 		//_vertex3f generarPuntoTapa(vector <_vertex3f> &p,int var);
 
 
@@ -115,5 +106,24 @@ class modeloPlyBarrido: public modeloPly
 };
 
 
+class modeloJerarquico
+{
+	private:
+		_cubo *cubo;
+		_piramide *pira;
+		int angulo;
+
+		void init(int tam);
 
 
+	public:
+		modeloJerarquico();
+		modeloJerarquico(int tam=1);
+		void pintarModelo();
+		void setAngulo(int angulo);
+		int getAngulo();
+
+
+
+
+};

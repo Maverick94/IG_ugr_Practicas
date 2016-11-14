@@ -13,7 +13,7 @@
 
 _puntos3D::_puntos3D()
 {
-    
+
 }
 
 //*************************************************************************
@@ -70,7 +70,7 @@ void _triangulos3D::draw_solido(float r, float g, float b)
 	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 	glColor3f(r,g,b);
 	glBegin(GL_TRIANGLES);
-	
+
 	for(int i=0; i < caras.size(); i++)
 	{
 		glVertex3f(vertices[caras[i].x].x,vertices[caras[i].x].y,vertices[caras[i].x].z);
@@ -88,7 +88,7 @@ void _triangulos3D::draw_solido_ajedrez(float r1, float g1, float b1, float r2, 
 {
 	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 	glBegin(GL_TRIANGLES);
-	
+
 	for(int i=0; i < caras.size(); i++)
 	{
 		if(i % 2 == 0)
@@ -113,7 +113,7 @@ _cubo::_cubo(float tam)
 {
 
 
-	//incializacion de los puntos en el eje de coordenadas x,y,z 
+	/*//incializacion de los puntos en el eje de coordenadas x,y,z
 	_vertex3f v1,v2,v3,v4,v5,v6,v7,v8;
 
 	v1.x = 0.0;
@@ -161,7 +161,7 @@ _cubo::_cubo(float tam)
 
 
 	_vertex3i c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12;
-	
+
 
 	c1.x=3;
 	c1.y=7;
@@ -186,7 +186,7 @@ _cubo::_cubo(float tam)
 	c6.x=0;
 	c6.y=6;
 	c6.z=5;
-	
+
 	c7.x=0;
 	c7.y=4;
 	c7.z=5;
@@ -202,7 +202,7 @@ _cubo::_cubo(float tam)
 	c10.x=5;
 	c10.y=6;
 	c10.z=7;
-	
+
 	c11.x=7;
 	c11.y=6;
 	c11.z=1;
@@ -222,7 +222,112 @@ _cubo::_cubo(float tam)
 	caras.push_back(c9);
 	caras.push_back(c10);
 	caras.push_back(c11);
-	caras.push_back(c12);
+	caras.push_back(c12);*/
+
+  _vertex3f nodo;
+  //v0
+    nodo.x=-tam/2.0;
+    nodo.y=-tam/2.0;
+    nodo.z=-tam/2.0;
+    vertices.push_back(nodo);
+    //v1
+    nodo.x=tam/2.0;
+    nodo.y=-tam/2.0;
+    nodo.z=-tam/2.0;
+    vertices.push_back(nodo);
+    //v2
+    nodo.x=tam/2.0;
+    nodo.y=tam/2.0;
+    nodo.z=-tam/2.0;
+    vertices.push_back(nodo);
+    //v3
+    nodo.x=-tam/2.0;
+    nodo.y=tam/2.0;
+    nodo.z=-tam/2.0;
+    vertices.push_back(nodo);
+    //v4
+    nodo.x=-tam/2.0;
+    nodo.y=-tam/2.0;
+    nodo.z=tam/2.0;
+    vertices.push_back(nodo);
+    //v5
+    nodo.x=tam/2.0;
+    nodo.y=-tam/2.0;
+    nodo.z=tam/2.0;
+    vertices.push_back(nodo);
+   //v6
+    nodo.x=tam/2.0;
+    nodo.y=tam/2.0;
+    nodo.z=tam/2.0;
+    vertices.push_back(nodo);
+    //v7
+    nodo.x=-tam/2.0;
+    nodo.y=tam/2.0;
+    nodo.z=tam/2.0;
+    vertices.push_back(nodo);
+
+
+    _vertex3i face;
+    //cara 0 Fondo horario
+      face.x=1;
+      face.y=0;
+      face.z=3;
+      caras.push_back(face);
+      //cara 1 fondo horario
+      face.x=1;
+      face.y=3;
+      face.z=2;
+      caras.push_back(face);
+      //cara2 frontal antihorario
+      face.x=4;
+      face.y=5;
+      face.z=6;
+      caras.push_back(face);
+      //cara3 frontal antihorario
+      face.x=4;
+      face.y=6;
+      face.z=7;
+      caras.push_back(face);
+      //cara4 lat. izq horario
+      face.x=0;
+      face.y=4;
+      face.z=7;
+      caras.push_back(face);
+      //caras5 lat. izq horario
+      face.x=0;
+      face.y=7;
+      face.z=3;
+      caras.push_back(face);
+      //caras6 lat.dcho antihorario
+      face.x=1;
+      face.y=2;
+      face.z=5;
+      caras.push_back(face);
+      //caras7 lat. dcho antihorario
+      face.x=5;
+      face.y=2;
+      face.z=6;
+      caras.push_back(face);
+      //caras8 sup antihorario
+      face.x=7;
+      face.y=6;
+      face.z=2;
+      caras.push_back(face);
+      //caras9 sup antihorario
+      face.x=7;
+      face.y=2;
+      face.z=3;
+      caras.push_back(face);
+      //caras10 antihorario
+      face.x=0;
+      face.y=1;
+      face.z=5;
+      caras.push_back(face);
+      //caras11 inf antihorario
+      face.x=4;
+      face.y=0;
+      face.z=5;
+      caras.push_back(face);
 }
 
 
@@ -232,10 +337,10 @@ _cubo::_cubo(float tam)
 
 _piramide::_piramide(float tam, float al)
 {
-	//incializacion de los puntos en el eje de coordenadas x,y,z 
+	//incializacion de los puntos en el eje de coordenadas x,y,z
 	_vertex3f v0,v1,v2,v3,v4;
 
-	v0.x = 0.0;
+	/*v0.x = 0.0;
 	v0.y = 0.0;
 	v0.z = 0.0;
 
@@ -254,6 +359,27 @@ _piramide::_piramide(float tam, float al)
 	v4.x = tam;
 	v4.y = 0.0;
 	v4.z = tam;
+*/
+
+v0.x = -0.5;
+v0.y = -0.5;
+v0.z = 0.5;
+
+v1.x = 0.5;//tam;
+v1.y = -0.5;
+v1.z = 0.5;
+
+v2.x = 0;//tam/2;
+v2.y = al;
+v2.z = 0;//tam/2;
+
+v3.x = 0.5;
+v3.y = -0.5;
+v3.z = -0.5;//tam;
+
+v4.x = -0.5;//tam;
+v4.y = -0.5;
+v4.z = -0.5;//tam;
 
 	vertices.push_back(v0);
 	vertices.push_back(v1);
@@ -263,7 +389,7 @@ _piramide::_piramide(float tam, float al)
 
 	_vertex3i c1,c2,c3,c4,c5,c6;
 
-	c1.x = 0;
+	/*c1.x = 0;
 	c1.y = 3;
 	c1.z = 1;
 
@@ -285,7 +411,31 @@ _piramide::_piramide(float tam, float al)
 
 	c6.x = 4;
 	c6.y = 1;
-	c6.z = 2;
+	c6.z = 2;*/
+
+	c1.x = 0;
+	c1.y = 1;
+	c1.z = 2;
+
+	c2.x = 1;
+	c2.y = 3;
+	c2.z = 2;
+
+	c3.x = 3;
+	c3.y = 4;
+	c3.z = 2;
+
+	c4.x = 4;
+	c4.y = 0;
+	c4.z = 2;
+
+	c5.x = 0;
+	c5.y = 4;
+	c5.z = 3;
+
+	c6.x = 0;
+	c6.y = 3;
+	c6.z = 1;
 
 	caras.push_back(c1);
 	caras.push_back(c2);
@@ -324,10 +474,10 @@ void modeloPly::cargarModelo(char* filename)
 		v.y=vertex[i+1];
 		v.z=vertex[i+2];
 
-		vertices.push_back(v);	
+		vertices.push_back(v);
 	}
 
-	
+
 		for(int i=0; i<face.size(); i=i+3)
 		{
 			f.x=face[i];
@@ -340,26 +490,6 @@ void modeloPly::cargarModelo(char* filename)
 
 }
 
-// void modeloPly::pintarPuntos(float r, float g, float b, int grosor)
-// {
-// 	draw_puntos(r,g,b,grosor);
-// }
-
-// void modeloPly::pintarAristas(float r, float g, float b, int grosor)
-// {
-// 	draw_aristas(r,g,b,grosor);
-// }
-
-// void modeloPly::pintarSolido(float r, float g, float b, int grosor)
-// {
-// 	draw_solido(r,g,b);
-// }
-
-// void modeloPly::pintarAjedrez(float r1, float g1, float b1, float r2, float g2, float b2)
-// {
-// 	draw_solido_ajedrez(r1,g1,b1,r2,g2,b2);
-// }
-
 _vertex3f modeloPlyRevolucion::rotarPunto(_vertex3f p, float ang)
 {
 	_vertex3f r;
@@ -371,14 +501,6 @@ _vertex3f modeloPlyRevolucion::rotarPunto(_vertex3f p, float ang)
 
 }
 
-
-/*void revolucion::generarCaras()
-{
-	for(int i=0; i<vertices.size(); i=i+3)
-	{
-		caras
-	}
-}*/
 
 modeloPlyRevolucion::modeloPlyRevolucion()
 {
@@ -408,8 +530,8 @@ void modeloPlyRevolucion::generarModelo(int etapas, vector <_vertex3f> perfil)
 {
 
 	float angulo=0;
-	_vertex3f punto_tapa = generarPuntoTapa(perfil,0);	
-	_vertex3f punto_abajo = generarPuntoTapa(perfil, perfil.size()-1);	
+	_vertex3f punto_tapa = generarPuntoTapa(perfil,0);
+	_vertex3f punto_abajo = generarPuntoTapa(perfil, perfil.size()-1);
 	vertices = perfil;
 	int tamano_perfil = perfil.size();
 	vertices.resize(perfil.size()*(etapas+1));
@@ -420,12 +542,12 @@ void modeloPlyRevolucion::generarModelo(int etapas, vector <_vertex3f> perfil)
 	for(int j=0; j<etapas; j++)
 	{
 		perfil[0] = rotarPunto(perfil[0],angulo);
-		vertices[k++]=perfil[0];	
+		vertices[k++]=perfil[0];
 
 		for(int i=1; i<perfil.size(); i++)
 		{
 			perfil[i] = rotarPunto(perfil[i],angulo);
-			vertices[k]=(perfil[i]);	
+			vertices[k]=(perfil[i]);
 
 			_vertex3i v;
 
@@ -441,20 +563,12 @@ void modeloPlyRevolucion::generarModelo(int etapas, vector <_vertex3f> perfil)
 
 			caras.push_back(v);
 
-			/*caras.push_back(k);
-			caras.push_back(k-perfil.size());
-			caras.push_back(k-perfil.size()-1);
-
-			caras.push_back(k);
-			caras.push_back(k-perfil.size()-1);
-			caras.push_back(k-1);*/
-
 			k++;
 		}
 
 
 	}
-	
+
 	vertices.push_back(punto_tapa);
 		for(int i=0; i<vertices.size()-tamano_perfil; i=i+tamano_perfil)
 		{
@@ -480,48 +594,8 @@ void modeloPlyRevolucion::generarModelo(int etapas, vector <_vertex3f> perfil)
 			caras.push_back(c);
 		}
 
-
-	/*for(int i=0; i<vertices.size(); i=i+3)
-	{
-
-	}*/
-
-
 }
 
-/*void modeloPlyRevolucion::cargarModelo(char* filename)
-{
-	_file_ply archivo;
-	vector<float> vertex;
-	vector<int> face;
-	_vertex3f v;
-	_vertex3i f;
-
-	archivo.open(filename);
-	archivo.read(vertex,face);
-	archivo.close();
-
-	for(int i=0; i<vertex.size(); i=i+3)
-	{
-		v.x=vertex[i];
-		v.y=vertex[i+1];
-		v.z=vertex[i+2];
-
-		vertices.push_back(v);	
-	}
-
-	//if(modo_ejecucion != 'r')
-		/*for(int i=0; i<face.size(); i=i+3)
-		{
-			f.x=face[i];
-			f.y=face[i+1];
-			f.z=face[i+2];
-
-			caras.push_back(f);
-		}*/
-
-
-//}
 
 modeloPlyBarrido::modeloPlyBarrido()
 {
@@ -539,7 +613,7 @@ _vertex3f pintarPuntoCentral(vector<_vertex3f> &p)
 	{
 		x+=p[i].x;
 		y+=p[i].y;
-		z+=p[i].z;		
+		z+=p[i].z;
 	}
 
 	v.x = x / p.size();
@@ -551,11 +625,11 @@ _vertex3f pintarPuntoCentral(vector<_vertex3f> &p)
 
 void modeloPlyBarrido::generarBarrido(vector <_vertex3f> perfil, _vertex3f verti)
 {
-		
+
 	vertices=perfil;
 	_vertex3f frontal= pintarPuntoCentral(vertices);
 
-	
+
 
 	for(int i=0; i<perfil.size(); i++)
 	{
@@ -565,23 +639,10 @@ void modeloPlyBarrido::generarBarrido(vector <_vertex3f> perfil, _vertex3f verti
 
 		vertices.push_back(perfil[i]);
 
-		/*_vertex3i c;
-
-		c.x=i;
-		c.y=vertices.size()-2;
-		c.z=vertices.size()-1;
-
-		caras.push_back(c);
-		
-		c.x=i;
-		c.y=i+1;
-		c.z=i+3;
-		caras.push_back(c);*/
-
 
 	}
 		vertices.push_back(frontal);
-	
+
 		frontal.x=verti.x + frontal.x;
 		frontal.y=verti.y + frontal.y;
 		frontal.z=verti.z + frontal.z;
@@ -597,7 +658,7 @@ void modeloPlyBarrido::generarBarrido(vector <_vertex3f> perfil, _vertex3f verti
 			c.x=i;
 			c.y=(i+1)%perfil.size();
 			c.z=vertices.size()-2;
-			
+
 			caras.push_back(c);
 		}
 		// /////////////////////////////
@@ -612,31 +673,10 @@ void modeloPlyBarrido::generarBarrido(vector <_vertex3f> perfil, _vertex3f verti
 
 			caras.push_back(c);
 		}
-		// vector<_vertex3i> aux;
 
-		// for (int i = 0; i < caras.size(); i++)
-		// {
-		// 	_vertex3i c;
-		// 	c.x=caras[i].x+6;
-		// 	c.y=caras[i].y+6;
-		// 	c.z=caras[i].z+1;
-
-		// 	aux.push_back(c);
-		// }
-
-		// for(int i=0; i<aux.size();i++){
-
-		// 	_vertex3i c;
-
-		// 	c.x=aux[i].x;
-		// 	c.y=aux[i].y;
-		// 	c.z=aux[i].z;
-
-		// 	 caras.push_back(c);
-		// }
-		// ////////////////////////////
-		// //Pintamos caras laterales//
-		// ////////////////////////////
+		 ////////////////////////////
+		 //Pintamos caras laterales//
+		 ////////////////////////////
 
 		int modulo=vertices.size()-2;
 
@@ -650,8 +690,8 @@ void modeloPlyBarrido::generarBarrido(vector <_vertex3f> perfil, _vertex3f verti
 			z = (i + perfil.size()) % modulo;
 
 			c.x=x;
-			c.y=y;//%modulo;
-			c.z=z;//%modulo;
+			c.y=y;
+			c.z=z;
 
 			caras.push_back(c);
 
@@ -660,85 +700,96 @@ void modeloPlyBarrido::generarBarrido(vector <_vertex3f> perfil, _vertex3f verti
 			z = (i + 1 + perfil.size()) % modulo;
 
 			c.x=x;
-			c.y=y;//%modulo;
-			c.z=z;//%modulo;
+			c.y=y;
+			c.z=z;
 
 			caras.push_back(c);
-			
-		// 	/*if(i==5)
-		// 	{
-		// 		c.x=(i+1)%6;
-		// 		c.y=i;
-		// 		c.z=(i+perfil.size()+1)%6;			
-		// 	}*/
-		
-		// 	c.x=(i+1);//%modulo;
-		// 	c.y=i;
-		// 	c.z=(i+perfil.size()+1);//%modulo;
-		
-
-		// 	caras.push_back(c);
-
-		// 	/*if(i==4)
-		// 	{
-		// 		c.x=i;
-		// 		c.y=i+perfil.size();
-		// 		c.z=perfil.size();
-		// 		caras.push_back(c);
-				
-		// 		c.x=0;
-		// 		c.y=i;
-		// 		c.z=perfil.size();
-		// 		caras.push_back(c);
-
-		// 	}*/
-
 
 		}
 
-		// _vertex3i c;
+}
 
-		// c.x=5;
-		// c.y=6;
-		// c.z=8;
-
-		// //caras.push_back(c);
-
-		// c.x=0;
-		// c.y=5;
-		// c.z=6;
-
-		// caras.push_back(c);
-
-		// /*for(int i=6; i<vertices.size()-2; i++)
-		// {
-		// 	_vertex3i c;
-		// 	c.x=i;
-		// 	c.y=i+1;
-		// 	c.z=vertices.size()-1;
-
-			
-		// 	caras.push_back(c);
-		// 	if(i==10)
-		// 	{
-		// 		c.x=i+1;
-		// 		c.y=(vertices.size()/2)-1;
-		// 		c.z=vertices.size()-1;
-		// 		caras.push_back(c);
-		// 	}
-
-		// }*/
-
-		// //caras.resize(caras.size()+caras.size()+1);
-
-		// /*for(int i=0; i<caras.size(); i++)
-		// {
-		// 	caras[6+i].x=caras[0].x+(vertices.size()/2);
-		// 	caras[6+i].y=caras[0].y+(vertices.size()/2);
-		// 	caras[6+i].z=caras[0].z+(vertices.size()/2);
-		// }*/
+//////////////////////////////////
+//      Modelo jerarquico      //
+/////////////////////////////////
 
 
+
+modeloJerarquico::modeloJerarquico()
+{
+
+}
+
+
+modeloJerarquico::modeloJerarquico(int tam)//: pira(tam)
+{
+	/*_cubo aux(tam);
+	_piramide aux2(tam,2);
+	cubo=aux;
+	pira=aux2;*/
+
+	cubo = new _cubo(tam);
+	pira = new _piramide(tam,0.5);
+
+}
+
+void modeloJerarquico::setAngulo(int angulo)
+{
+    this->angulo = angulo;
+}
+
+int modeloJerarquico::getAngulo()
+{
+    return angulo;
+}
+
+void modeloJerarquico::pintarModelo()
+{
+    //Base de la grua
+  glPushMatrix();
+      glScalef(1,0.2,1);
+      cubo->draw_solido(1,0,0);
+    glPopMatrix();
+
+    //Palo principal
+
+    for(int i=0; i<4; i++)
+    {
+      glPushMatrix();
+          glTranslatef(0,0.6+i,0);
+          glRotatef(angulo,0,1,0);
+          glScalef(0.5,1,0.5);
+          cubo->draw_aristas(0,1,0,1);
+      glPopMatrix();
+    }
+
+		//Intercalacion entre palo principal y el controlar
+
+		glPushMatrix();
+			glTranslatef(0,4.2,0);
+			glScalef(0.5,0.2,0.5);
+			cubo->draw_solido(1,0,0);
+		glPopMatrix();
+
+		glPushMatrix();
+		//	glTranslatef(-0.3,4.2,0);
+
+			glTranslatef(0,4.8,0);
+			glScalef(0.5,1.2,0.5);
+
+			pira->draw_solido(0,0,1);
+		glPopMatrix();
+
+
+		//Pala que soporta el gancho
+
+		glPushMatrix();
+
+			glTranslatef(-0.4,-0.1,0);
+			glTranslatef(0,4.8,0);
+			glScalef(0.5,0.8,0.5);
+			pira->draw_aristas(0,1,0,0);
+		glPopMatrix();
 
 
 }
