@@ -22,14 +22,26 @@ GLfloat Observer_angle_y;
 int opcion=0;
 //int cupi=0;
 int modificadorPra=0;
+
+//Objetos creacion
+_cubo cubo1(1);
+_piramide pi1(1,1.5);
 modeloPly m;
 modeloPlyRevolucion r;
 modeloPlyBarrido b;
 modeloJerarquico cubojer(1);
-int angulo_base=0;
 
-_cubo cubo1(1);
-_piramide pi1(1,1.5);
+//Angulos
+int angulo_base=0;
+float movimiento = 0;
+
+//variables velocidad
+float girogrua=0;
+float velocidadcarrito=0;
+float velocidadcuerda=0;
+
+
+
 // variables que controlan la ventana y la transformacion de perspectiva
 GLfloat Size_x,Size_y,Front_plane,Back_plane;
 
@@ -206,6 +218,38 @@ void draw_objects()
 
 }
 
+void idle()
+{
+	cubojer.setAngulo(cubojer.getAngulo()+girogrua);
+
+
+if(cubojer.getGancho()+velocidadcuerda < 2.7 && cubojer.getGancho()+velocidadcuerda>=-0.6)
+{
+	cubojer.setGancho(cubojer.getGancho()+velocidadcuerda);
+	//cout << velocidadcuerda << "cuerda" << cubojer.getGancho()<<  endl;
+	if(cubojer.getGancho() > 2.5 || cubojer.getGancho()< -0.5)
+	{
+	//	cubojer.setGancho(0.00);
+		velocidadcuerda=0.000;
+	}
+}
+
+if(cubojer.getMovimiento()+velocidadcarrito < 3.4 && cubojer.getMovimiento()+velocidadcarrito>=-0.1)
+{
+	cubojer.setMovimiento(cubojer.getMovimiento()+velocidadcarrito);
+//	cout << velocidadcarrito << "cuerda" << cubojer.getGancho()<<  endl;
+	if(cubojer.getMovimiento() > 3.2 || cubojer.getMovimiento()< -0.05)
+	{
+	//	cubojer.setGancho(0.00);
+		velocidadcarrito=0.000;
+	//	cout << velocidadcarrito<< "DEntro" << endl;
+	}
+}
+
+	glutPostRedisplay();
+
+
+}
 
 //**************************************************************************
 //
@@ -303,6 +347,66 @@ void normal_key(unsigned char Tecla1,int x,int y)
 				cubojer.setAngulo(cubojer.getAngulo()-15);
 				//angulo=angulo-15;
 				break;
+
+			case 'Y':
+				if(cubojer.getMovimiento() < 3.4)
+					cubojer.setMovimiento(cubojer.getMovimiento()+0.2);
+			//	angulo=angulo+15;
+				break;
+
+			case 'U':
+				if(cubojer.getMovimiento() >-0.1)
+					cubojer.setMovimiento(cubojer.getMovimiento()-0.2);
+				//angulo=angulo-15;
+				break;
+
+			case 'T':
+				if(cubojer.getGancho() < 2.7)
+					cubojer.setGancho(cubojer.getGancho()+0.1);
+				cout << cubojer.getGancho() << endl;
+
+			//	angulo=angulo+15;
+				break;
+
+			case 'R':
+			if(cubojer.getGancho() > -0.6)
+				cubojer.setGancho(cubojer.getGancho()-0.1);
+
+			cout << cubojer.getGancho() << endl;
+
+
+				//angulo=angulo-15;
+				break;
+
+
+			case 'Z'://aumentar velocidad giro
+				girogrua=girogrua+1;
+			break;
+
+
+			case 'X'://disminuir velocidad giro
+				girogrua=girogrua-1;
+			break;
+
+
+			case 'C'://disminuir velocidad cuerda
+				velocidadcuerda=velocidadcuerda-0.007;
+				break;
+
+			case 'V'://aumentar velocidad cuerda
+				velocidadcuerda=velocidadcuerda+0.007;
+				break;
+//velocidadcarrito
+
+			case 'B'://disminuir velocidad cuerda
+				velocidadcarrito=velocidadcarrito-0.007;
+				break;
+
+			case 'N'://aumentar velocidad cuerda
+				velocidadcarrito=velocidadcarrito+0.007;
+				break;
+
+
 
 			case '-':
 				Observer_distance*=1.2;
@@ -424,6 +528,9 @@ int main(int argc, char **argv)
 	glutKeyboardFunc(normal_key);
 	// asignación de la funcion llamada "tecla_Especial" al evento correspondiente
 	glutSpecialFunc(special_key);
+
+
+	glutIdleFunc(idle);
 
 	// funcion de inicialización
 	initialize();

@@ -112,6 +112,8 @@ class modeloJerarquico
 		_cubo *cubo;
 		_piramide *pira;
 		int angulo;
+		float mov_caja;
+		float gancho;
 
 		void init(int tam);
 
@@ -122,6 +124,11 @@ class modeloJerarquico
 		void pintarModelo();
 		void setAngulo(int angulo);
 		int getAngulo();
+		void setMovimiento(float mov_caja);
+		float getMovimiento();
+		void setGancho(float gancho);
+		float getGancho();
+
 
 
 

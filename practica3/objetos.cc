@@ -743,87 +743,241 @@ int modeloJerarquico::getAngulo()
     return angulo;
 }
 
+
+void modeloJerarquico::setGancho(float gancho)
+{
+	this->gancho = gancho;
+}
+
+float modeloJerarquico::getGancho()
+{
+	return gancho;
+}
+
+void modeloJerarquico::setMovimiento(float mov_caja)
+{
+	this->mov_caja=mov_caja;
+}
+float modeloJerarquico::getMovimiento()
+{
+	return mov_caja;
+}
+
 void modeloJerarquico::pintarModelo()
 {
-    //Base de la grua
-  glPushMatrix();
-      glScalef(1,0.2,1);
-      cubo->draw_solido(1,0,0);
-    glPopMatrix();
+	glPushMatrix();
 
-    //Palo principal
+		//SOPORTE = BASE + CUDRADOS
+		glPushMatrix();
+			//Base
+			glPushMatrix();
+		  	glScalef(1,0.2,1);
+       	cubo->draw_solido(1,0,0);
+		  glPopMatrix();
 
-   for(int i=0; i<4; i++)
-    {
-      glPushMatrix();
+			//SOPORTE
+	   for(int i=0; i<4; i++)
+  		{
+	      glPushMatrix();
           glTranslatef(0,0.6+i,0);
           glScalef(0.5,1,0.5);
           cubo->draw_aristas(1,0.7,0,1);
-      glPopMatrix();
-    }
-
-		//Intercalacion entre palo principal y el controlar
-
-		glPushMatrix();
-			glTranslatef(0,4.2,0);
-			glScalef(0.5,0.2,0.5);
-			cubo->draw_solido(1,0,0);
+	      glPopMatrix();
+	    }
 		glPopMatrix();
 
+		//Palo principal = Rectangulo + Rectangulo arista + Prismas
 		glPushMatrix();
-
-
-			glTranslatef(0,4.8,0);
 			glRotatef(angulo,0,1,0);
-			glScalef(0.5,1.2,0.5);
+			//Palo cruzado.
+			for(int i=0; i<4; i++)
+			{
+				glPushMatrix();
+						glTranslatef(0,4.4,0.7+i);
+						glRotatef(90,1,0,0);
+						glScalef(0.3,1,0.3);
+						cubo->draw_aristas(1,0.7,0,1);
+				glPopMatrix();
+			}
 
-			pira->draw_solido(0,0,1);
-		glPopMatrix();
-
-
-		//Palo cruzado.
-		for(int i=0; i<4; i++)
-		{
 			glPushMatrix();
-					glRotatef(angulo,0,1,0);
-					glTranslatef(0,4.4,0.7+i);
-
+					glTranslatef(0,4.4,4.5);
+					glRotatef(90,1,0,0);
+					glScalef(0.3,0.7,0.3);
+					pira->draw_aristas(1,0.7,0,1);
+			glPopMatrix();
+			//Compensador
+			glPushMatrix();
+					glTranslatef(0,4.4,-0.7);
 					glRotatef(90,1,0,0);
 					glScalef(0.3,1,0.3);
 					cubo->draw_aristas(1,0.7,0,1);
 			glPopMatrix();
-		}
 
+			glPushMatrix();
+					glTranslatef(0,4.4,-1.3);
+					glScalef(0.6,0.8,0.6);
+					cubo->draw_solido(0.8,0,0);
+			glPopMatrix();
+		glPopMatrix();
+
+		//INTERCALACION = piramide + rectangulo
 		glPushMatrix();
+			//rectangulo
+			glPushMatrix();
+				glTranslatef(0,4.2,0);
+				glScalef(0.5,0.2,0.5);
+				cubo->draw_solido(1,0,0);
+			glPopMatrix();
+
+			//piramide
+			glPushMatrix();
+				glTranslatef(0,4.8,0);
 				glRotatef(angulo,0,1,0);
-				glTranslatef(0,4.4,4.5);
+				glScalef(0.5,1.2,0.5);
 
-				glRotatef(90,1,0,0);
-				glScalef(0.3,0.7,0.3);
-				pira->draw_aristas(1,0.7,0,1);
-		glPopMatrix();
+				pira->draw_solido(0,0,1);
+			glPopMatrix();
 
-		//Compensador
-		glPushMatrix();
-				glRotatef(angulo,0,1,0);
-				glTranslatef(0,4.4,-0.7);
-				glRotatef(90,1,0,0);
-				glScalef(0.3,1,0.3);
-				cubo->draw_aristas(1,0.7,0,1);
 		glPopMatrix();
 
 		glPushMatrix();
-			  glRotatef(angulo,0,1,0);
-				glTranslatef(0,4.4,-1.3);
-				glScalef(0.6,0.8,0.6);
-				cubo->draw_solido(0.8,0,0);
-		glPopMatrix();
-
+		//CARRO y PLUMA = Rectangulo + Rectangulo
 
 		//Carril de la grua.
+		glRotatef(angulo,0,1,0);
+		glTranslatef(0,4.1,0.7+mov_caja);
 
-		glPushMatrix();
-			
-		glPopMatrix();
+
+			glPushMatrix();
+				//glTranslatef(0,4.1,0.7+mov_caja);
+			//	glRotatef(90,1,0,0);
+				glScalef(0.3,0.3,0.3);
+				cubo->draw_solido(0.8,0,0);
+			glPopMatrix();
+
+
+			//Cuerda de la grua
+			glPushMatrix();
+				//glTranslatef(0,-0.6,0);
+
+				glScalef(0.1,1+gancho,0.1);
+				glTranslatef(0,-0.5,0); //que me estas contando?
+				cubo->draw_solido(0.8,0,0);
+			glPopMatrix();
+				//glRotatef(90,1,0,0);
+
+
+
+
+
+
+
+	glPopMatrix();
+
+
+//     //Base de la grua
+//   glPushMatrix();
+//       glScalef(1,0.2,1);
+//       cubo->draw_solido(1,0,0);
+//     glPopMatrix();
+//
+//     //Palo principal
+//
+//    for(int i=0; i<4; i++)
+//     {
+//       glPushMatrix();
+//           glTranslatef(0,0.6+i,0);
+//           glScalef(0.5,1,0.5);
+//           cubo->draw_aristas(1,0.7,0,1);
+//       glPopMatrix();
+//     }
+//
+// 		//Intercalacion entre palo principal y el controlar
+//
+// 		glPushMatrix();
+// 			glTranslatef(0,4.2,0);
+// 			glScalef(0.5,0.2,0.5);
+// 			cubo->draw_solido(1,0,0);
+// 		glPopMatrix();
+//
+// 		glPushMatrix();
+//
+//
+// 			glTranslatef(0,4.8,0);
+// 			glRotatef(angulo,0,1,0);
+// 			glScalef(0.5,1.2,0.5);
+//
+// 			pira->draw_solido(0,0,1);
+// 		glPopMatrix();
+//
+//
+// 		//Palo cruzado.
+// 		for(int i=0; i<4; i++)
+// 		{
+// 			glPushMatrix();
+// 					glRotatef(angulo,0,1,0);
+// 					glTranslatef(0,4.4,0.7+i);
+//
+// 					glRotatef(90,1,0,0);
+// 					glScalef(0.3,1,0.3);
+// 					cubo->draw_aristas(1,0.7,0,1);
+// 			glPopMatrix();
+// 		}
+//
+// 		glPushMatrix();
+// 				glRotatef(angulo,0,1,0);
+// 				glTranslatef(0,4.4,4.5);
+//
+// 				glRotatef(90,1,0,0);
+// 				glScalef(0.3,0.7,0.3);
+// 				pira->draw_aristas(1,0.7,0,1);
+// 		glPopMatrix();
+//
+// 		//Compensador
+// 		glPushMatrix();
+// 				glRotatef(angulo,0,1,0);
+// 				glTranslatef(0,4.4,-0.7);
+// 				glRotatef(90,1,0,0);
+// 				glScalef(0.3,1,0.3);
+// 				cubo->draw_aristas(1,0.7,0,1);
+// 		glPopMatrix();
+//
+// 		glPushMatrix();
+// 			  glRotatef(angulo,0,1,0);
+// 				glTranslatef(0,4.4,-1.3);
+// 				glScalef(0.6,0.8,0.6);
+// 				cubo->draw_solido(0.8,0,0);
+// 		glPopMatrix();
+//
+//
+// 		//Carril de la grua.
+//
+// 		glPushMatrix();
+// 			glRotatef(angulo,0,1,0);
+// 			glTranslatef(0,4.1,0.7+mov_caja);
+// 			glRotatef(90,1,0,0);
+// 			glScalef(0.3,0.3,0.3);
+// 			cubo->draw_solido(0.8,0,0);
+// 		glPopMatrix();
+//
+//
+// 		//Cuerda de la grua
+//
+//
+// cout << gancho << endl;
+//
+//
+// 		glPushMatrix();
+// 		//int reescalar = gancho + 0.2;
+// 			glRotatef(angulo,0,1,0);
+// 			glTranslatef(0,3.6-gancho,0.7+mov_caja);
+// 			glPushMatrix();
+// 				glScalef(0.1,1+gancho,0.1);
+// 				cubo->draw_solido(0.8,0,0);
+// 			glPopMatrix();
+// 			//glRotatef(90,1,0,0);
+//
+// 		glPopMatrix();
 
 }
