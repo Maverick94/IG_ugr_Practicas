@@ -6,6 +6,7 @@
 #include "file_ply_stl.h"
 #include "file_ply_stl.cc"
 #include <math.h>
+#include <cassert>
 
 //*************************************************************************
 // _puntos3D
@@ -103,45 +104,225 @@ void _triangulos3D::draw_solido_ajedrez(float r1, float g1, float b1, float r2, 
 	glEnd();
 }
 
-vector<_vertex3f> _triangulos3D::productoEscalar(vector<_vertex3f> a, vector<_vertex3f> b)
+float _triangulos3D::productoEscalar(const _vertex3f &a, const _vertex3f &b)
 {
-	vector<_vertex3f> resultado;
+	float resultado;
 
-	resultado.x=a.x+b.x;
-	resultado.y=a.y+b.y;
-	resultado.z=a.z+b.z;
+
+	resultado= (a.x*b.x) + (a.y*b.y) + (a.z*b.z);
 
 	return resultado;
 
 }
 
-vector<_vertex3f> _triangulos3D::productoVectorial(const vector<_vertex3f> &a, const vector<_vertex3f> &b)
+_vertex3f _triangulos3D::productoVectorial(const _vertex3f &a, const _vertex3f &b)
 {
-		vector<_vertex3f> resultado;
+		_vertex3f resultado;
 
 		resultado.x=(a.y*b.z - a.z*b.y);
-		resultado.y=(a.z*b.x - b.x*a.z);
+		resultado.y=-(a.x*b.z - a.z*b.x);
 		resultado.z=(a.x*b.y - a.y*b.x);
 
 		return resultado;
 }
 
-void _triangulos3D::normalizarVector()
+void _triangulos3D::normalizar(_vertex3f &v)
 {
-	_vertex3f p,q,tx,ty,tz;
+	float modulo = sqrt(productoEscalar(v,v));
+
+	v.x=v.x/modulo;
+	v.y=v.y/modulo;
+	v.z=v.z/modulo;
+}
+
+
+
+void _triangulos3D::draw_normales_vertices(float r, float g, float b)
+{
+	_vertex3f v1,v2,v3, promedio,aux;
+
+	glColor3f(r,g,b);
+	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+	glBegin(GL_LINES);
+		for(int i=0; i < vertices.size(); i++)
+		{
+			// v1=vertices[caras[i].x];
+			// v2=vertices[caras[i].y];
+			// v3=vertices[caras[i].z];
+
+			// promedio.x= (v1.x+v2.x+v3.x)/3.0;
+			// promedio.y= (v1.y+v2.y+v3.y)/3.0;
+			// promedio.z= (v1.z+v2.z+v3.z)/3.0;
+
+
+			aux=vertices_normalizados[i] + vertices[i];
+			// aux.x=caras_normalazadas[i].x+promedio.x;
+			// aux.y=caras_normalazadas[i].y+promedio.y;
+			// aux.z=caras_normalazadas[i].z+promedio.z;
+			glVertex3f(vertices[i].x,vertices[i].y,vertices[i].z);
+			glVertex3f(aux.x,aux.y,aux.z);
+		}
+		// for(int i=0;i<caras_normalizadas.size();i++)
+		// {
+		// 	cout << "x: " << caras_normalizadas[i].x <<endl;
+		// 	cout << "y: " << caras_normalizadas[i].y <<endl;
+		// 	cout << "z: " << caras_normalizadas[i].z <<endl;
+		// }
+	glEnd();
+}
+
+
+void _triangulos3D::draw_normales_caras(float r, float g, float b)
+{
+	_vertex3f v1,v2,v3, promedio,aux;
+
+	glColor3f(r,g,b);
+	glShadeModel(GL_FLAT);
+	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+	glBegin(GL_LINES);
+		for(int i=0; i < caras.size(); i++)
+		{
+			v1=vertices[caras[i].x];
+			v2=vertices[caras[i].y];
+			v3=vertices[caras[i].z];
+
+			promedio.x= (v1.x+v2.x+v3.x)/3.0;
+			promedio.y= (v1.y+v2.y+v3.y)/3.0;
+			promedio.z= (v1.z+v2.z+v3.z)/3.0;
+
+
+			aux=caras_normalizadas[i]+promedio;
+			// aux.x=caras_normalazadas[i].x+promedio.x;
+			// aux.y=caras_normalazadas[i].y+promedio.y;
+			// aux.z=caras_normalazadas[i].z+promedio.z;
+			glVertex3f(promedio.x,promedio.y,promedio.z);
+			glVertex3f(aux.x,aux.y,aux.z);
+		}
+		// for(int i=0;i<caras_normalizadas.size();i++)
+		// {
+		// 	cout << "x: " << caras_normalizadas[i].x <<endl;
+		// 	cout << "y: " << caras_normalizadas[i].y <<endl;
+		// 	cout << "z: " << caras_normalizadas[i].z <<endl;
+		// }
+	glEnd();
+}
+
+void _triangulos3D::normalizarVectorVertices()
+{
+	int t1,t2,t3;
+
+	vertices_normalizados.resize(vertices.size());
+	// for(int i=0; i<vertices_normalizados.size(); i++)
+	// 	vertices_normalizados[i].push_back(0);
+
+	for(int i=0; i< caras.size(); i++)
+	{
+		t1=caras[i].x;
+		t2=caras[i].y;
+		t3=caras[i].z;
+
+
+		vertices_normalizados[t1]=vertices_normalizados[t1]+caras_normalizadas[i];
+		vertices_normalizados[t2]=vertices_normalizados[t2]+caras_normalizadas[i];
+		vertices_normalizados[t3]=vertices_normalizados[t3]+caras_normalizadas[i];
+
+	}
+
+	for(int i = 0; i<vertices_normalizados.size(); i++)
+		normalizar(vertices_normalizados[i]);
+
+	for(int i=0; i<vertices_normalizados.size(); i++)
+	{
+		cout << "x: " << vertices_normalizados[i].x << endl;
+		cout << "y: " << vertices_normalizados[i].y << endl;
+		cout << "z: " << vertices_normalizados[i].z << endl;
+		cout << endl;
+	}
+
+}
+
+void _triangulos3D::normalizarVectores()
+{
+	normalizarVectorCaras();
+	normalizarVectorVertices();
+
+}
+
+
+void _triangulos3D::normalizarVectorCaras()
+{
+	_vertex3f p,q,t1,t2,t3,resultado;
 
 
 	for(int i=0; i<caras.size(); i++) //vamos a rescatar los vectores
 	{
-		tx=caras[i].x;
-		ty=caras[i].y;
-		tz=caras[i].z;
+		//con esto, conseguimos los vertices de una cara
+		t1=vertices[caras[i].x];
+		t2=vertices[caras[i].y];
+		t3=vertices[caras[i].z];
+
+		//Ya tenemos p y q
+		p.x=(t2.x-t1.x);
+		p.y=(t2.y-t1.y);
+		p.z=(t2.z-t1.z);
+
+		q.x=(t3.x-t1.x);
+		q.y=(t3.y-t1.y);
+		q.z=(t3.z-t1.z);
+
+		//realizamos el productoVectorial
+
+		resultado=productoVectorial(p,q);
+
+		normalizar(resultado);
+
+		//resultado.normalize();
+		// assert(resultado.x >= 0.0 && resultado.x<=1.0);
+		// assert(resultado.y >= 0.0 && resultado.y<=1.0);
+		// assert(resultado.z >= 0.0 && resultado.z<=1.0);
+
+		caras_normalizadas.push_back(resultado);
 
 
 	}
 
 
 
+}
+
+void _triangulos3D::draw_suavizado_plano(float r, float g, float b)
+{
+	glColor3f(r,g,b);
+	glBegin(GL_TRIANGLES);
+		glShadeModel(GL_FLAT);
+		for(int i=0; i<caras.size(); i++)
+		{
+			glNormal3f(caras_normalizadas[i].x,caras_normalizadas[i].y,caras_normalizadas[i].z);
+			glVertex3f(vertices[caras[i].x].x,vertices[caras[i].x].y,vertices[caras[i].x].z);
+			glVertex3f(vertices[caras[i].y].x,vertices[caras[i].y].y,vertices[caras[i].y].z);
+			glVertex3f(vertices[caras[i].z].x,vertices[caras[i].z].y,vertices[caras[i].z].z);
+		}
+
+	glEnd();
+}
+
+
+void _triangulos3D::draw_suavizado_gouraud(float r, float g, float b)
+{
+	glColor3f(r,g,b);
+	glBegin(GL_TRIANGLES);
+		glShadeModel(GL_SMOOTH);
+		for(int i=0; i<caras.size(); i++)
+		{
+			glNormal3f(vertices_normalizados[caras[i].x].x,vertices_normalizados[caras[i].x].y,vertices_normalizados[caras[i].x].z);
+			glVertex3f(vertices[caras[i].x].x,vertices[caras[i].x].y,vertices[caras[i].x].z);
+			glNormal3f(vertices_normalizados[caras[i].y].x,vertices_normalizados[caras[i].y].y,vertices_normalizados[caras[i].y].z);
+			glVertex3f(vertices[caras[i].y].x,vertices[caras[i].y].y,vertices[caras[i].y].z);
+			glNormal3f(vertices_normalizados[caras[i].z].x,vertices_normalizados[caras[i].z].y,vertices_normalizados[caras[i].z].z);
+			glVertex3f(vertices[caras[i].z].x,vertices[caras[i].z].y,vertices[caras[i].z].z);
+
+		}
+		glEnd();
 }
 
 //*************************************************************************

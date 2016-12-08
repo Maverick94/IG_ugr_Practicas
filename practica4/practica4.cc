@@ -21,7 +21,7 @@ GLfloat Observer_angle_y;
 //Variables para controlar las teclas
 int opcion=0;
 int cupi=0;
-int modificadorPra=3;
+int modificadorPra=4;
 int betpeonbar=1;
 
 //Objetos creacion
@@ -196,6 +196,50 @@ void draw_objects()
 	{
 		cubojer.pintarModelo();
 	}
+	else if(modificadorPra == 4) //Practica 4
+	{
+		cubo1.normalizarVectores();
+
+		int movimientoLuz=0;
+
+		GLfloat luz0[4]={0,1,0,0};
+
+		GLfloat luz1[4]={0,0,10,0};
+		GLfloat colorluz1[4]={1,1,0,1};
+
+		GLfloat luz2[4]={1,-10,0,0};
+		GLfloat colorluz2[4]={0,1,1,1};
+
+		GLfloat luz3[4]={0,0,0,10};
+		GLfloat colorluz3[4]={0,0,1,1};
+
+		GLfloat ambient[4]={1,1,1,1};
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+
+	glLightfv(GL_LIGHT0, GL_POSITION, luz0);
+
+	glPushMatrix();
+		glRotatef(movimientoLuz,1,0,0);
+		glLightfv(GL_LIGHT1,GL_POSITION,luz1);
+		glLightfv(GL_LIGHT1,GL_DIFFUSE, colorluz1);
+	glPopMatrix();
+
+	glLightfv(GL_LIGHT2,GL_POSITION, luz2);
+	glLightfv(GL_LIGHT2,GL_DIFFUSE, colorluz2);
+
+	glLightfv(GL_LIGHT3, GL_POSITION, luz3);
+	glLightfv(GL_LIGHT3, GL_DIFFUSE, colorluz3);
+
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+
+		cubo1.draw_solido_ajedrez(1,0,0,0,1,0);
+		cubo1.draw_suavizado_plano(0,0,0);
+	}
 }
 
 void idle()
@@ -319,6 +363,10 @@ void normal_key(unsigned char Tecla1,int x,int y)
 
 		case '3': //Practica 3
 			modificadorPra=3;
+			break;
+
+		case '4'://Practica 4
+			modificadorPra=4;
 			break;
 
 			case 'O':
