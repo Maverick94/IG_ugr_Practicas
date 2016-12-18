@@ -8,14 +8,14 @@ TARGETS= practica4
 # encontrar ficheros para incluir mediante la opcion -I
 # la opcion -g sirve para permitir la depuraci�n
 #
-CFLAGS=    -g -DXWINDOWS -DSHM -I/usr/include -I.
-CXXFLAGS=  -g -DXWINDOWS -DSHM -I/usr/include -I.
+CFLAGS=    -g -DXWINDOWS -DSHM -I/usr/include -I. -std=c++11
+CXXFLAGS=  -g -DXWINDOWS -DSHM -I/usr/include -I. -std=c++11
 
 # banderas pra el enlazador
 # Se indica directorios donde encontrar las funciontecas con -L. Usando -l seguido del
 # nombre se indica la funcionteca que se desea enlazar.
 #
-LDFLAGS=  -lGLU -lGL -lglut
+LDFLAGS=  -lGLU -lGL -lglut -ljpeg
 
 # definicion del compilador
 #
@@ -27,8 +27,8 @@ default : $(TARGETS)
 
 # regla de ejecucion
 #
-$(TARGETS) : practica4.o objetos.o
-	$(CC) -o $@ $(CXXFLAGS) practica4.o objetos.o $(LDFLAGS)
+$(TARGETS) : practica4.o objetos.o file_ply_stl.o jpg_memsrc.o jpg_imagen.o jpg_readwrite.o
+	$(CC) -o $@ $(CXXFLAGS) practica4.o objetos.o file_ply_stl.o jpg_memsrc.o jpg_readwrite.o jpg_imagen.o $(LDFLAGS)
 
 #
 #

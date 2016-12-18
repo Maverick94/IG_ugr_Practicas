@@ -60,3 +60,16 @@ Tecla c-->Subir cuerda automático
 Tecla v-->Bajar cuerda automático
 Tecla b-->Desplazar carro hacia interior automático
 Tecla n-->Desplazar carro hacia exterior automático
+
+
+-Práctica 4:
+Tecla 6 -->Enceder luz direccional
+Tecla 7 -->Apagar luz direccional
+Tecla 8 -->Enceder luz posicional
+Tecla 9 -->Apagar luz posicional
+
+Tecla a-->Amentar beta
+Tecla z-->disminuir beta
+tecla x-->amentar alfa
+tecla c-->disminuir alfa
+(No funciona)

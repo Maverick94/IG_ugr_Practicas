@@ -4,9 +4,10 @@
 
 #include "objetos.h"
 #include "file_ply_stl.h"
-#include "file_ply_stl.cc"
+//#include "file_ply_stl.cc"
 #include <math.h>
 #include <cassert>
+#include "iluminacion.h"
 
 //*************************************************************************
 // _puntos3D
@@ -231,13 +232,7 @@ void _triangulos3D::normalizarVectorVertices()
 	for(int i = 0; i<vertices_normalizados.size(); i++)
 		normalizar(vertices_normalizados[i]);
 
-	for(int i=0; i<vertices_normalizados.size(); i++)
-	{
-		cout << "x: " << vertices_normalizados[i].x << endl;
-		cout << "y: " << vertices_normalizados[i].y << endl;
-		cout << "z: " << vertices_normalizados[i].z << endl;
-		cout << endl;
-	}
+
 
 }
 
@@ -292,38 +287,62 @@ void _triangulos3D::normalizarVectorCaras()
 
 void _triangulos3D::draw_suavizado_plano(float r, float g, float b)
 {
-	glColor3f(r,g,b);
-	glBegin(GL_TRIANGLES);
-		glShadeModel(GL_FLAT);
-		for(int i=0; i<caras.size(); i++)
-		{
-			glNormal3f(caras_normalizadas[i].x,caras_normalizadas[i].y,caras_normalizadas[i].z);
-			glVertex3f(vertices[caras[i].x].x,vertices[caras[i].x].y,vertices[caras[i].x].z);
-			glVertex3f(vertices[caras[i].y].x,vertices[caras[i].y].y,vertices[caras[i].y].z);
-			glVertex3f(vertices[caras[i].z].x,vertices[caras[i].z].y,vertices[caras[i].z].z);
-		}
+	glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,material.getDifusa());
+	glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,material.getEspecular());
+	glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,material.getAmbiental());
+	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,material.getBrillo());
 
+	textura.activar();
+	glBegin(GL_TRIANGLES);
+	glShadeModel(GL_FLAT);
+	for(int i=0; i<caras.size(); i++)
+	{
+		glNormal3f(caras_normalizadas[i].x,caras_normalizadas[i].y,caras_normalizadas[i].z);
+		glTexCoord2f(coordendastex[caras[i].x].x,coordendastex[caras[i].x].y);
+		glVertex3f(vertices[caras[i].x].x,vertices[caras[i].x].y,vertices[caras[i].x].z);
+				glTexCoord2f(coordendastex[caras[i].y].x,coordendastex[caras[i].y].y);
+		glVertex3f(vertices[caras[i].y].x,vertices[caras[i].y].y,vertices[caras[i].y].z);
+			glTexCoord2f(coordendastex[caras[i].z].x,coordendastex[caras[i].z].y);
+		glVertex3f(vertices[caras[i].z].x,vertices[caras[i].z].y,vertices[caras[i].z].z);
+	}
 	glEnd();
+	textura.desactivar();
 }
 
+// GLfloat difuse[4] = {0.4,0.5,0.5,1};					//Componente difusa del material
+// GLfloat specular[4] = { 	0.04, 	0.7, 	0.7,1};	//Componente especular del material
+// GLfloat ambient[4] = {0.0,0.05,0.05,1};				//Componente ambiental del material
+// float shininess=5;
 
 void _triangulos3D::draw_suavizado_gouraud(float r, float g, float b)
 {
-	glColor3f(r,g,b);
-	glBegin(GL_TRIANGLES);
-		glShadeModel(GL_SMOOTH);
-		for(int i=0; i<caras.size(); i++)
-		{
-			glNormal3f(vertices_normalizados[caras[i].x].x,vertices_normalizados[caras[i].x].y,vertices_normalizados[caras[i].x].z);
-			glVertex3f(vertices[caras[i].x].x,vertices[caras[i].x].y,vertices[caras[i].x].z);
-			glNormal3f(vertices_normalizados[caras[i].y].x,vertices_normalizados[caras[i].y].y,vertices_normalizados[caras[i].y].z);
-			glVertex3f(vertices[caras[i].y].x,vertices[caras[i].y].y,vertices[caras[i].y].z);
-			glNormal3f(vertices_normalizados[caras[i].z].x,vertices_normalizados[caras[i].z].y,vertices_normalizados[caras[i].z].z);
-			glVertex3f(vertices[caras[i].z].x,vertices[caras[i].z].y,vertices[caras[i].z].z);
+	glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,material.getDifusa());
+	glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,material.getEspecular());
+	glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,material.getAmbiental());
+	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,material.getBrillo());
 
-		}
-		glEnd();
+	textura.activar();
+	glBegin(GL_TRIANGLES);
+	glShadeModel(GL_SMOOTH);
+	//Rastreo el vector de caras para ir dibujandolos
+	for(int i=0; i<caras.size();i++){
+		glNormal3f(vertices_normalizados[caras[i].x].x,vertices_normalizados[caras[i].x].y,vertices_normalizados[caras[i].x].z);
+		glTexCoord2f(coordendastex[caras[i].x].x,coordendastex[caras[i].x].y);
+		glVertex3f(vertices[caras[i].x].x,vertices[caras[i].x].y,vertices[caras[i].x].z);
+
+		glNormal3f(vertices_normalizados[caras[i].y].x,vertices_normalizados[caras[i].y].y,vertices_normalizados[caras[i].y].z);
+		glTexCoord2f(coordendastex[caras[i].y].x,coordendastex[caras[i].y].y);
+		glVertex3f(vertices[caras[i].y].x,vertices[caras[i].y].y,vertices[caras[i].y].z);
+
+		glNormal3f(vertices_normalizados[caras[i].z].x,vertices_normalizados[caras[i].z].y,vertices_normalizados[caras[i].z].z);
+		glTexCoord2f(coordendastex[caras[i].z].x,coordendastex[caras[i].z].y);
+		glVertex3f(vertices[caras[i].z].x,vertices[caras[i].z].y,vertices[caras[i].z].z);
+	}
+	glEnd();
+	textura.desactivar();
 }
+
+
 
 //*************************************************************************
 // clase cubo
@@ -743,7 +762,7 @@ _vertex3f modeloPlyRevolucion::rotarPunto(_vertex3f p, float ang)
 
 modeloPlyRevolucion::modeloPlyRevolucion()
 {
-
+	generarTapas = true;
 }
 
 _vertex3f modeloPlyRevolucion::generarPuntoTapa(vector <_vertex3f> &p,int var)
@@ -765,18 +784,59 @@ _vertex3f modeloPlyRevolucion::generarPuntoTapa(vector <_vertex3f> &p,int var)
 	return vertice_tapa;
 }
 
+
+void  modeloPlyRevolucion::perfilModelo()
+{
+		p=vertices;
+}
+
+
+
+/////////// No sabemos si esto funciona
+void modeloPlyRevolucion::calculoCordenadasTexturas()
+{
+	float si, tj;
+	float distancia_total = p.back().y - p.front().y;
+	_vertex2f v;
+	vector<float> distancias;
+	distancias.resize(p.size());
+	distancias[0] = 0.0;
+	for(int i=1; i<p.size(); i++)
+		distancias[i]=(distancias[i-1]+(p[i].y - p[i-1].y));///distancia_total;
+
+	for(int i=0; i<et+1; i++)
+	{
+		si=(i*1.0)/et;
+		//cout << si;
+		for (int j=0; j<p.size(); j++)
+		{
+			tj=distancias[j]/distancias[p.size()-1];
+			v.x=1-si;
+			v.y=1-tj;
+			coordendastex.push_back(v);
+			// cout << "(" << si <<", " << tj<<") ";
+		}
+		// cout << endl;
+	}
+}
+
+
 void modeloPlyRevolucion::generarModelo(int etapas, vector <_vertex3f> perfil)
 {
+	float angulo= (2*M_PI) / etapas;
+	perfilModelo();
+	et=etapas;
+	_vertex3f punto_tapa, punto_abajo;
+	//cout << "valor de generar tapas: " << generarTapas <<endl;
+	if(generarTapas) {
+		punto_tapa = generarPuntoTapa(perfil,0);
+		punto_abajo = generarPuntoTapa(perfil, perfil.size()-1);
+	}
 
-	float angulo=0;
-	_vertex3f punto_tapa = generarPuntoTapa(perfil,0);
-	_vertex3f punto_abajo = generarPuntoTapa(perfil, perfil.size()-1);
 	vertices = perfil;
 	int tamano_perfil = perfil.size();
 	vertices.resize(perfil.size()*(etapas+1));
-	int k=perfil.size();;
-
-	angulo= (2*M_PI) / etapas;
+	int k=perfil.size();
 
 	for(int j=0; j<etapas; j++)
 	{
@@ -808,30 +868,39 @@ void modeloPlyRevolucion::generarModelo(int etapas, vector <_vertex3f> perfil)
 
 	}
 
-	vertices.push_back(punto_tapa);
-		for(int i=0; i<vertices.size()-tamano_perfil; i=i+tamano_perfil)
-		{
-			_vertex3i c;
-
-			c.x=i;
-			c.y=i+tamano_perfil;
-			c.z=vertices.size()-1;
-
-			caras.push_back(c);
-		}
-
-		vertices.push_back(punto_abajo);
-		for(int i=tamano_perfil-1; i<vertices.size()-tamano_perfil; i=i+tamano_perfil)
-		{
-			_vertex3i c;
-
-			c.x=i;
-			c.y=i+tamano_perfil;
-			c.z=vertices.size()-1;
+	// for(int i=0; i<perfil.size(); i++)
+	// {
+	// 	assert(vertices[i]==vertices[i+(vertices.size()-perfil.size())]);
+	// }
 
 
-			caras.push_back(c);
-		}
+
+	if(generarTapas) {
+		vertices.push_back(punto_tapa);
+			for(int i=0; i<vertices.size()-tamano_perfil; i=i+tamano_perfil)
+			{
+				_vertex3i c;
+
+				c.x=i;
+				c.y=i+tamano_perfil;
+				c.z=vertices.size()-1;
+
+				caras.push_back(c);
+			}
+
+			vertices.push_back(punto_abajo);
+			for(int i=tamano_perfil-1; i<vertices.size()-tamano_perfil; i=i+tamano_perfil)
+			{
+				_vertex3i c;
+
+				c.x=i;
+				c.y=i+tamano_perfil;
+				c.z=vertices.size()-1;
+
+
+				caras.push_back(c);
+			}
+	}
 
 }
 

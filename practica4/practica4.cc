@@ -2,11 +2,13 @@
 // Práctica 1 usando objetos
 //**************************************************************************
 
+
 #include <GL/glut.h>
 #include <ctype.h>
 #include <math.h>
 #include <vector>
 #include "objetos.h"
+#include "iluminacion.h"
 #include "file_ply_stl.h"
 #include <stdlib.h>
 
@@ -28,7 +30,9 @@ int betpeonbar=1;
 _cubo cubo1(1);
 _piramide pi1(1,1.5);
 modeloPly m;
-modeloPlyRevolucion r;
+modeloPlyRevolucion r, peon_negro, peon_madera, peon_blanco, lata, latasup,latainf;
+//peon_negro.meterImagen("tex/tex-madera.jpg");
+///
 modeloPlyBarrido b;
 modeloJerarquico cubojer(1);
 
@@ -41,6 +45,11 @@ float girogrua=0;
 float velocidadcarrito=0;
 float velocidadcuerda=0;
 
+
+//LUCES
+
+Iluminacion luces;
+float alfa=0.0,bet=0.0;
 
 
 // variables que controlan la ventana y la transformacion de perspectiva
@@ -118,6 +127,9 @@ void draw_axis()
 //**************************************************************************
 // Funcion que dibuja los objetos
 //***************************************************************************
+
+GLfloat luz[4]={4,5,10,0};
+GLfloat color[4]={0.8,0.8,0.8,1};
 
 void draw_objects()
 {
@@ -198,47 +210,42 @@ void draw_objects()
 	}
 	else if(modificadorPra == 4) //Practica 4
 	{
-		cubo1.normalizarVectores();
+		//cubo1.normalizarVectores();
 
-		int movimientoLuz=0;
 
-		GLfloat luz0[4]={0,1,0,0};
+		luces.habilitarLuces();
+		// glPushMatrix();
+		// 	glTranslatef(0,0.42,2);
+		// 	glScalef(0.3,0.3,0.3);
+		// 	peonm.draw_suavizado_plano(0,1,0);
+		// glPopMatrix();
 
-		GLfloat luz1[4]={0,0,10,0};
-		GLfloat colorluz1[4]={1,1,0,1};
+		glPushMatrix();
+		//glScalef(0.7,0.7,0.7);
+			glTranslatef(-1,1.5,2);
+			peon_madera.draw_suavizado_gouraud(0,0,0);
+		glPopMatrix();
 
-		GLfloat luz2[4]={1,-10,0,0};
-		GLfloat colorluz2[4]={0,1,1,1};
+		glPushMatrix();
+		//glScalef(0.7,0.7,0.7);
+			glTranslatef(0,1.5,4);
+			peon_blanco.draw_suavizado_gouraud(0,0,0);
+		glPopMatrix();
 
-		GLfloat luz3[4]={0,0,0,10};
-		GLfloat colorluz3[4]={0,0,1,1};
+		glPushMatrix();
+	//	glScalef(0.7,0.7,0.7);
+			glTranslatef(1,1.5,6);
+			peon_negro.draw_suavizado_gouraud(0,0,0);
+		glPopMatrix();
 
-		GLfloat ambient[4]={1,1,1,1};
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient);
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
-
-	glLightfv(GL_LIGHT0, GL_POSITION, luz0);
-
-	glPushMatrix();
-		glRotatef(movimientoLuz,1,0,0);
-		glLightfv(GL_LIGHT1,GL_POSITION,luz1);
-		glLightfv(GL_LIGHT1,GL_DIFFUSE, colorluz1);
-	glPopMatrix();
-
-	glLightfv(GL_LIGHT2,GL_POSITION, luz2);
-	glLightfv(GL_LIGHT2,GL_DIFFUSE, colorluz2);
-
-	glLightfv(GL_LIGHT3, GL_POSITION, luz3);
-	glLightfv(GL_LIGHT3, GL_DIFFUSE, colorluz3);
-
-	glShadeModel(GL_SMOOTH);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
-
-		cubo1.draw_solido_ajedrez(1,0,0,0,1,0);
-		cubo1.draw_suavizado_plano(0,0,0);
+		glPushMatrix();
+			glScalef(3,3,3);
+			lata.draw_suavizado_plano(0,0,0);
+			latasup.draw_suavizado_gouraud(0,0,0);
+			latainf.draw_suavizado_gouraud(0,0,0);
+		glPopMatrix();
+///¿Por qué en funcion de donde onga el peon, sale bien o sale mall?
+		//peon_blanco.draw_suavizado_gouraud(0,0,0);
 	}
 }
 
@@ -320,123 +327,217 @@ void change_window_size(int Ancho1,int Alto1)
 
 void normal_key(unsigned char Tecla1,int x,int y)
 {
-	switch (toupper(Tecla1))
+
+	if(modificadorPra!=4){
+
+		switch (toupper(Tecla1))
+		{
+			case 'Q':
+				exit(0);
+				break;
+
+			case 'P':
+				opcion=0; //puntos
+				break;
+
+			case 'E':
+				opcion=1; //Alambre
+				break;
+
+			case 'S':
+				opcion=2; //Sólido
+				break;
+			case 'A':
+				opcion=3; //Ajedrez
+				break;
+
+			case '8':
+				betpeonbar=1;
+				break;
+
+			case '9': //cambiar entre piramide y cubo
+				cupi=0;
+				betpeonbar=2;
+				break;
+			case '0':
+				cupi=1;
+				betpeonbar=3;
+				break;
+			case '1':	//Práctica 1
+				modificadorPra=1;
+				break;
+
+			case '2':	//Practica2
+				modificadorPra=2;
+				break;
+
+			case '3': //Practica 3
+				modificadorPra=3;
+				break;
+
+			case '4'://Practica 4
+				modificadorPra=4;
+				break;
+
+				case 'O':
+					cubojer.setAngulo(cubojer.getAngulo()+15);
+				//	angulo=angulo+15;
+					break;
+
+				case 'I':
+					cubojer.setAngulo(cubojer.getAngulo()-15);
+					//angulo=angulo-15;
+					break;
+
+				case 'Y':
+					if(cubojer.getMovimiento() < 3.4)
+						cubojer.setMovimiento(cubojer.getMovimiento()+0.2);
+				//	angulo=angulo+15;
+					break;
+
+				case 'U':
+					if(cubojer.getMovimiento() >-0.1)
+						cubojer.setMovimiento(cubojer.getMovimiento()-0.2);
+					//angulo=angulo-15;
+					break;
+
+				case 'T':
+					if(cubojer.getGancho() < 2.7)
+						cubojer.setGancho(cubojer.getGancho()+0.1);
+				//	cout << cubojer.getGancho() << endl;
+
+				//	angulo=angulo+15;
+					break;
+
+				case 'R':
+				if(cubojer.getGancho() > -0.6)
+					cubojer.setGancho(cubojer.getGancho()-0.1);
+
+		//		cout << cubojer.getGancho() << endl;
+
+
+					//angulo=angulo-15;
+					break;
+
+
+				case 'Z'://aumentar velocidad giro
+					girogrua=girogrua+1;
+				break;
+
+
+				case 'X'://disminuir velocidad giro
+					girogrua=girogrua-1;
+				break;
+
+
+				case 'C'://disminuir velocidad cuerda
+						velocidadcuerda=velocidadcuerda-0.007;
+					break;
+
+				case 'V'://aumentar velocidad cuerda
+						velocidadcuerda=velocidadcuerda+0.007;
+					break;
+	//velocidadcarrito
+
+				case 'B'://disminuir velocidad cuerda
+					velocidadcarrito=velocidadcarrito-0.007;
+					break;
+
+				case 'N'://aumentar velocidad cuerda
+					velocidadcarrito=velocidadcarrito+0.007;
+					break;
+
+
+				// case 'G': //aumentar alpha
+				// 	alfa=alfa+0,261799;
+				// 	luces.setPosicionDireccional(alfa,bet);
+				// 	break;
+				//
+				//
+				// case 'H':
+				// 	bet=bet+0,261799;
+				//
+				// 	luces.setPosicionDireccional(alfa,bet);
+				// 	break;
+				case '6':
+
+						luces.encederLuz0();
+						break;
+
+				case '7':
+						luces.apagarLuz0();
+						break;
+
+				case '-':
+					Observer_distance*=1.2;
+					break;
+
+				case '+':
+					Observer_distance/=1.2;
+					break;
+
+				}
+	}
+	else if(modificadorPra==4)//Teclas solo de la p4
 	{
-		case 'Q':
-			exit(0);
-			break;
-
-		case 'P':
-			opcion=0; //puntos
-			break;
-
-		case 'E':
-			opcion=1; //Alambre
-			break;
-
-		case 'S':
-			opcion=2; //Sólido
-			break;
-		case 'A':
-			opcion=3; //Ajedrez
-			break;
-
-		case '8':
-			betpeonbar=1;
-			break;
-
-		case '9': //cambiar entre piramide y cubo
-			cupi=0;
-			betpeonbar=2;
-			break;
-		case '0':
-			cupi=1;
-			betpeonbar=3;
-			break;
-		case '1':	//Práctica 1
-			modificadorPra=1;
-			break;
-
-		case '2':	//Practica2
-			modificadorPra=2;
-			break;
-
-		case '3': //Practica 3
-			modificadorPra=3;
-			break;
-
-		case '4'://Practica 4
-			modificadorPra=4;
-			break;
-
-			case 'O':
-				cubojer.setAngulo(cubojer.getAngulo()+15);
-			//	angulo=angulo+15;
+		switch (toupper(Tecla1))
+		{
+			case '1':	//Práctica 1
+				modificadorPra=1;
 				break;
 
-			case 'I':
-				cubojer.setAngulo(cubojer.getAngulo()-15);
-				//angulo=angulo-15;
+			case '2':	//Practica2
+				modificadorPra=2;
 				break;
 
-			case 'Y':
-				if(cubojer.getMovimiento() < 3.4)
-					cubojer.setMovimiento(cubojer.getMovimiento()+0.2);
-			//	angulo=angulo+15;
+			case '3': //Practica 3
+				modificadorPra=3;
 				break;
 
-			case 'U':
-				if(cubojer.getMovimiento() >-0.1)
-					cubojer.setMovimiento(cubojer.getMovimiento()-0.2);
-				//angulo=angulo-15;
+			case '4'://Practica 4
+				modificadorPra=4;
 				break;
 
-			case 'T':
-				if(cubojer.getGancho() < 2.7)
-					cubojer.setGancho(cubojer.getGancho()+0.1);
-				cout << cubojer.getGancho() << endl;
-
-			//	angulo=angulo+15;
+			case 'Q':
+				exit(0);
 				break;
 
-			case 'R':
-			if(cubojer.getGancho() > -0.6)
-				cubojer.setGancho(cubojer.getGancho()-0.1);
+			case '6':
+					luces.encederLuz0();
+					break;
 
-			cout << cubojer.getGancho() << endl;
+			case '7':
+					luces.apagarLuz0();
+					break;
 
+			case '8':
+					luces.encenderLuz1();
+					break;
 
-				//angulo=angulo-15;
-				break;
-
-
-			case 'Z'://aumentar velocidad giro
-				girogrua=girogrua+1;
-			break;
-
-
-			case 'X'://disminuir velocidad giro
-				girogrua=girogrua-1;
-			break;
+			case '9':
+					luces.apagarLuz1();
+					break;
 
 
-			case 'C'://disminuir velocidad cuerda
-					velocidadcuerda=velocidadcuerda-0.007;
-				break;
+			case 'A':
+					luces.setBeta((luces.getBeta()+0.261799));
 
-			case 'V'://aumentar velocidad cuerda
-					velocidadcuerda=velocidadcuerda+0.007;
-				break;
-//velocidadcarrito
+					luces.setPosicionDireccional();
+					break;
+			case 'Z':
+					luces.setBeta((luces.getBeta()-0.261799));
+					luces.setPosicionDireccional();
+					break;
 
-			case 'B'://disminuir velocidad cuerda
-				velocidadcarrito=velocidadcarrito-0.007;
-				break;
 
-			case 'N'://aumentar velocidad cuerda
-				velocidadcarrito=velocidadcarrito+0.007;
-				break;
-
+			case 'X':
+					luces.setAlpha((luces.getAlpha()+0.261799));
+					luces.setPosicionDireccional();
+					break;
+			case 'C':
+					luces.setAlpha((luces.getAlpha()-0.261799));
+					luces.setPosicionDireccional();
+					break;
 
 
 			case '-':
@@ -446,9 +547,7 @@ void normal_key(unsigned char Tecla1,int x,int y)
 			case '+':
 				Observer_distance/=1.2;
 				break;
-
-
-
+		}
 	}
 
 	glutPostRedisplay();
@@ -549,7 +648,7 @@ int main(int argc, char **argv)
 
 	// llamada para crear la ventana, indicando el titulo (no se visualiza hasta que se llama
 	// al bucle de eventos)
-	glutCreateWindow("PRACTICA 3");
+	glutCreateWindow("PRACTICA 4");
 
 	// asignación de la funcion llamada "dibujar" al evento de dibujo
 	glutDisplayFunc(draw);
@@ -571,6 +670,127 @@ int main(int argc, char **argv)
 	m.cargarModelo(argv[1]);
 	r.cargarModelo(argv[2]);
 	r.generarModelo(atoi(argv[3]),r.vertices);
+
+	///////////////////////////////////////////
+	///////////// Peon Negro //////////////////
+	///////////////////////////////////////////
+
+	//Cargamos modelo del peon
+	peon_negro.cargarModelo("Archivos_PLY/perfil.ply");
+	peon_negro.generarModelo(30,peon_negro.vertices);
+	//Normalizamos sus vectores
+	peon_negro.normalizarVectores();
+	//Establecemos su material en nuestro caso, será un negro brillante
+	peon_negro.material.setComponenteAmbiental(0.02,0.02,0.02,1.0);
+	peon_negro.material.setComponenteDifusa(0.01,0.01,0.01,1.0);
+	peon_negro.material.setComponenteEspecular(0.4,0.4,0.4,1);
+	peon_negro.material.setComponenteBrillo(10);
+
+	peon_negro.calculoCordenadasTexturas();
+
+
+
+	lata.textura.cargar("tex/text-lata-1.jpg");
+	lata.generarTapas = false;
+	lata.cargarModelo("Archivos_PLY/lata-pcue.ply");
+	lata.generarModelo(30,lata.vertices);
+	lata.normalizarVectores();
+
+	lata.material.setComponenteAmbiental(0.5,0.5,0.5,1.0);
+	lata.material.setComponenteDifusa(0.3, 0.3,0.3,1.0);
+	lata.material.setComponenteEspecular(0.4,0.4,0.4,1);
+	lata.material.setComponenteBrillo(10);
+
+
+	lata.calculoCordenadasTexturas();
+
+
+
+	latasup.cargarModelo("Archivos_PLY/lata-psup.ply");
+	latasup.generarModelo(30,latasup.vertices);
+	latasup.normalizarVectores();
+
+	latasup.material.setComponenteAmbiental(0.5,0.5,0.5,1.0);
+	latasup.material.setComponenteDifusa(0.3, 0.3,0.3,1.0);
+	latasup.material.setComponenteEspecular(0.4,0.4,0.4,1);
+	latasup.material.setComponenteBrillo(10);
+	latasup.calculoCordenadasTexturas();
+
+
+	latainf.cargarModelo("Archivos_PLY/lata-pinf.ply");
+	latainf.generarModelo(30,latainf.vertices);
+	latainf.normalizarVectores();
+
+	latainf.material.setComponenteAmbiental(0.5,0.5,0.5,1.0);
+	latainf.material.setComponenteDifusa(0.3, 0.3,0.3,1.0);
+	latainf.material.setComponenteEspecular(0.4,0.4,0.4,1);
+	latainf.material.setComponenteBrillo(10);
+	latainf.calculoCordenadasTexturas();
+
+
+
+	//
+	// cout << "peon negro, numero de vertices del perfil: " << peon_negro.p.size() << endl;
+	// cout << "peon negro, etapas del perfil: " << peon_negro.et <<endl;
+
+
+// for(int i=0; i<lata.coordendastex.size(); i++)
+// {
+// 	for(int j=0; j<lata.p.size(); j++)
+// 	{
+// 		cout << "(" << lata.coordendastex[i].x <<", " << lata.coordendastex[j].y<<") ";
+// 	}
+// 	cout << endl;
+// }
+
+
+
+	///////////////////////////////////////////
+	///////////// Peon blanco /////////////////
+	///////////////////////////////////////////
+
+	peon_blanco.cargarModelo("Archivos_PLY/perfil.ply");
+	peon_blanco.generarModelo(30,peon_blanco.vertices);
+	//Normalizamos sus vectores
+	peon_blanco.normalizarVectores();
+	peon_blanco.calculoCordenadasTexturas();
+	//Establecemos su material en nuestro caso, será un negro brillante
+	peon_blanco.material.setComponenteAmbiental(0.0,0.0,0.0,1.0);
+	peon_blanco.material.setComponenteDifusa(0.8,0.8,0.8,1.0);
+	peon_blanco.material.setComponenteEspecular(0.015,0.015,0.015,1.0);
+	peon_blanco.material.setComponenteBrillo(0.03*128);
+
+
+	peon_madera.textura.cargar("tex/text-madera.jpg");
+	peon_madera.cargarModelo("Archivos_PLY/perfil.ply");
+	peon_madera.generarModelo(30,peon_madera.vertices);
+	//Normalizamos sus vectores
+	peon_madera.normalizarVectores();
+	peon_madera.calculoCordenadasTexturas();
+	//Establecemos su material en nuestro caso, será un negro brillante
+	// peon_madera.material.setComponenteAmbiental(0.6,0.6,0.6,1.0);
+	// peon_madera.material.setComponenteDifusa(1.0,1.0,1.0,1.0);
+	// peon_madera.material.setComponenteEspecular(1.0,1.0,1.0,1.0);
+	peon_madera.material.setComponenteAmbiental(0.5,0.5,0.5,1.0);
+	peon_madera.material.setComponenteDifusa(0.2,0.2,0.2,1.0);
+	peon_madera.material.setComponenteEspecular(0.8,0.8,0.8,1.0);
+	peon_madera.material.setComponenteBrillo(1);
+	peon_madera.calculoCordenadasTexturas();
+
+
+
+
+	luces.habilitarLuces();
+
+
+
+				//
+				// peon->setMaterialAmbient(0, 	0, 	0, 0.0);
+				// peon->setMaterialDifuse(0.8, 	0.8, 	0.8, 1.0);
+				// peon->setMaterialSpecular(0.015, 	0.015, 	0.015, 1.0);
+				// peon->setMaterialShininess(0.03*128);
+				// peon->aplicarMaterial(0,1,1,0);
+
 	b.cargarModelo(argv[4]);
 
 
