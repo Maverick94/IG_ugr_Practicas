@@ -25,6 +25,7 @@ int opcion=0;
 int cupi=0;
 int modificadorPra=4;
 int betpeonbar=1;
+int planogoruo=0;
 
 //Objetos creacion
 _cubo cubo1(1);
@@ -219,31 +220,60 @@ void draw_objects()
 		// 	glScalef(0.3,0.3,0.3);
 		// 	peonm.draw_suavizado_plano(0,1,0);
 		// glPopMatrix();
+		if(planogoruo==0)
+		{
+			glPushMatrix();
+			//glScalef(0.7,0.7,0.7);
+				glTranslatef(-1,1.5,2);
+				peon_madera.draw_suavizado_plano(0,0,0);
+			glPopMatrix();
 
-		glPushMatrix();
-		//glScalef(0.7,0.7,0.7);
-			glTranslatef(-1,1.5,2);
-			peon_madera.draw_suavizado_gouraud(0,0,0);
-		glPopMatrix();
+			glPushMatrix();
+			//glScalef(0.7,0.7,0.7);
+				glTranslatef(0,1.5,4);
+				peon_blanco.draw_suavizado_plano(0,0,0);
+			glPopMatrix();
 
-		glPushMatrix();
-		//glScalef(0.7,0.7,0.7);
-			glTranslatef(0,1.5,4);
-			peon_blanco.draw_suavizado_gouraud(0,0,0);
-		glPopMatrix();
+			glPushMatrix();
+		//	glScalef(0.7,0.7,0.7);
+				glTranslatef(1,1.5,6);
+				peon_negro.draw_suavizado_plano(0,0,0);
+			glPopMatrix();
 
-		glPushMatrix();
-	//	glScalef(0.7,0.7,0.7);
-			glTranslatef(1,1.5,6);
-			peon_negro.draw_suavizado_gouraud(0,0,0);
-		glPopMatrix();
+			glPushMatrix();
+				glScalef(3,3,3);
+				lata.draw_suavizado_plano(0,0,0);
+				latasup.draw_suavizado_plano(0,0,0);
+				latainf.draw_suavizado_plano(0,0,0);
+			glPopMatrix();
 
-		glPushMatrix();
-			glScalef(3,3,3);
-			lata.draw_suavizado_plano(0,0,0);
-			latasup.draw_suavizado_gouraud(0,0,0);
-			latainf.draw_suavizado_gouraud(0,0,0);
-		glPopMatrix();
+		}else if(planogoruo==1)
+		{
+			glPushMatrix();
+			//glScalef(0.7,0.7,0.7);
+				glTranslatef(-1,1.5,2);
+				peon_madera.draw_suavizado_gouraud(0,0,0);
+			glPopMatrix();
+
+			glPushMatrix();
+			//glScalef(0.7,0.7,0.7);
+				glTranslatef(0,1.5,4);
+				peon_blanco.draw_suavizado_gouraud(0,0,0);
+			glPopMatrix();
+
+			glPushMatrix();
+		//	glScalef(0.7,0.7,0.7);
+				glTranslatef(1,1.5,6);
+				peon_negro.draw_suavizado_gouraud(0,0,0);
+			glPopMatrix();
+
+			glPushMatrix();
+				glScalef(3,3,3);
+				lata.draw_suavizado_gouraud(0,0,0);
+				latasup.draw_suavizado_gouraud(0,0,0);
+				latainf.draw_suavizado_gouraud(0,0,0);
+			glPopMatrix();
+		}
 ///¿Por qué en funcion de donde onga el peon, sale bien o sale mall?
 		//peon_blanco.draw_suavizado_gouraud(0,0,0);
 	}
@@ -517,6 +547,14 @@ void normal_key(unsigned char Tecla1,int x,int y)
 			case '9':
 					luces.apagarLuz1();
 					break;
+
+			case 'O':
+					planogoruo=0;
+					break;
+
+			case 'P':
+				planogoruo=1;
+				break;
 
 
 			case 'A':

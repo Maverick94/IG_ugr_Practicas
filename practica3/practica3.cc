@@ -14,14 +14,16 @@
 using namespace std;
 
 
+
 // variables que definen la posicion de la camara en coordenadas polares
 GLfloat Observer_distance;
 GLfloat Observer_angle_x;
 GLfloat Observer_angle_y;
 //Variables para controlar las teclas
 int opcion=0;
-//int cupi=0;
-int modificadorPra=0;
+int cupi=0;
+int modificadorPra=3;
+int betpeonbar=1;
 
 //Objetos creacion
 _cubo cubo1(1);
@@ -118,73 +120,14 @@ void draw_axis()
 // Funcion que dibuja los objetos
 //***************************************************************************
 
+
+
 void draw_objects()
 {
 	//pi1.draw_aristas(1.0,0,0,1.2);
 
-		cubojer.pintarModelo();
-	/*switch(opcion)
-		{
-			case 0:
-				if(modificadorPra==1)
-					m.draw_puntos(1.0,0,0,2);
-				else if(modificadorPra==2)
-					r.draw_puntos(1.0,0,0,2);
-				else
-					b.draw_puntos(1.0,0,0,10);
-				break;
-			case 1:
-				if(modificadorPra==1)
-					m.draw_aristas(1.0,0,0,1.2);
-				else if(modificadorPra==2)
-					r.draw_aristas(1.0,0,0,1.2);
-				else
-					b.draw_aristas(1.0,0,0,1.2);
-				break;
-			case 2:
-				if(modificadorPra==1)
-					m.draw_solido(1.0,0,0);
-				else if(modificadorPra==2)
-					r.draw_solido(1.0,0,0);
-					else
-					b.draw_solido(1.0,0,0);
-				break;
-			case 3:
-				if(modificadorPra==1)
-					m.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
-				else if(modificadorPra==2)
-					r.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
-				else
-					b.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
-				break;
-		}
-
-
-*/
-
-	//m.pintarAjedrez(1.0,0,0,0,0,1);
-	//m.draw_puntos(1.0,0,0,1);
-	//r.draw_aristas(1.0,0,0,1.2);
-	//r.pintarAjedrez(1.0,0,0,0,0,1);
-	//if(modificadorPra=2)
-		/*switch(opcion)
-		{
-			case 0:
-				r.pintarPuntos(1.0,0,0,2);
-				break;
-			case 1:
-				r.pintarAristas(1.0,0,0,1.2);
-				break;
-			case 2:
-				r.pintarSolido(1,0,0,0);
-				break;
-			case 3:
-				r.pintarAjedrez(1,0,0,0,1,0);
-				break;
-
-		}*/
-/*
-	else if(modificadorPra=1)
+	if(modificadorPra == 1) //Practica 1
+	{
 		switch(opcion)
 		{
 			case 0:
@@ -211,42 +154,131 @@ void draw_objects()
 				else
 					pi1.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
 				break;
+			}
+	}
+	else if(modificadorPra == 2) //Practica 2
+	{
+		switch(opcion)
+			{
+				case 0:
+					if(betpeonbar==1)
+						m.draw_puntos(1.0,0,0,2);
+					else if(betpeonbar==2)
+						r.draw_puntos(1.0,0,0,2);
+					else
+						b.draw_puntos(1.0,0,0,10);
+					break;
+				case 1:
+					if(betpeonbar==1)
+						m.draw_aristas(1.0,0,0,1.2);
+					else if(betpeonbar==2)
+						r.draw_aristas(1.0,0,0,1.2);
+					else
+						b.draw_aristas(1.0,0,0,1.2);
+					break;
+				case 2:
+					if(betpeonbar==1)
+						m.draw_solido(1.0,0,0);
+					else if(betpeonbar==2)
+						r.draw_solido(1.0,0,0);
+						else
+						b.draw_solido(1.0,0,0);
+					break;
+				case 3:
+					if(betpeonbar==1)
+						m.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
+					else if(betpeonbar==2)
+						r.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
+					else
+						b.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
+					break;
+			}
+	}
 
-	}*/
+	else if(modificadorPra == 3) //Practica 3
+	{
+		cubojer.pintarModelo();
+
+		//
+		// 	glPushMatrix();
+		// 		glRotatef(giro,0,0,1);
+		// 	 	glTranslatef(0,1,0);
+		// 	 	glScalef(1,2,1);
+		// 		cubo1.draw_solido_ajedrez(1,0,0,0,0,1);
+		// 	glPopMatrix();
+		//
+		// 	glPushMatrix();
+		// 		glRotatef(giro,0,0,1);
+		// 		glTranslatef(0,2,0);
+		// 		glRotatef(giro2,0,0,1);
+		// 	 	glTranslatef(0,1,0);
+		// 	 	glScalef(1,2,1);
+		// 		cubo1.draw_solido_ajedrez(1,0,0,0,0,1);
+		// 	glPopMatrix();
+		//
+		// 	glPushMatrix();
+		//
+		// //Trasladamos al primer rectangulo y luego al segundo
+		//
+		// 		glRotatef(giro,0,0,1);
+		// 		glTranslatef(0,2.0,0);
+		// 		glRotatef(giro2,0,0,1);
+		// 		glTranslatef(-0.4,2.0,0);
+		// 		glRotatef(pinzas,0,0,1);
+		// 		glScalef(0.2,0.2,0.2);
+		//
+		// 		glTranslatef(0,1,0);
+		// 	 	glScalef(1,2,1);
+		// 		cubo1.draw_solido_ajedrez(1,0,0,0,0,1);
+		// 	glPopMatrix();
+		//
+		// 	glPushMatrix();
+		// //Trasladamos al primer rectangulo y luego al segundo
+		//
+		// 		glRotatef(giro,0,0,1);//le damos el giro del rectangulo primero
+		// 		glTranslatef(0,2.0,0);//lo subimos al rectangulo de mas arriba
+		// 		glRotatef(giro2,0,0,1);//le damos el angulo del rectangulo de arriba
+		// 		glTranslatef(0.4,2.0,0);//lo subimos al primer rectangulo ya pintado
+		// 		glRotatef(-pinzas,0,0,1);//Le damos el angulo de las pinzas
+		// 		glScalef(0.2,0.2,0.2);//Lo ponemos chiquitito
+		//
+		// 		glTranslatef(0,1,0);//Ponemos por encima del eje de coordenadas
+		// 	 	glScalef(1,2,1);//Escalamos como rectangulo
+		// 		cubo1.draw_solido_ajedrez(1,0,0,0,0,1);//Pintamos el cuadrado
+		// 	glPopMatrix();
 
 
-
+	}
 }
 
 void idle()
 {
 	cubojer.setAngulo(cubojer.getAngulo()+girogrua);
 
-
-if(cubojer.getGancho()+velocidadcuerda < 2.7 && cubojer.getGancho()+velocidadcuerda>=-0.6)
-{
-	cubojer.setGancho(cubojer.getGancho()+velocidadcuerda);
-	//cout << velocidadcuerda << "cuerda" << cubojer.getGancho()<<  endl;
-	if(cubojer.getGancho() > 2.5 || cubojer.getGancho()< -0.5)
+	if(cubojer.getGancho()+velocidadcuerda < 2.7 && cubojer.getGancho()+velocidadcuerda>=-0.6)
 	{
-	//	cubojer.setGancho(0.00);
-		velocidadcuerda=0.000;
+		cubojer.setGancho(cubojer.getGancho()+velocidadcuerda);
+		//cout << velocidadcuerda << "cuerda" << cubojer.getGancho()<<  endl;
+		if(cubojer.getGancho() > 2.5 || cubojer.getGancho()< -0.5)
+		{
+		//	cubojer.setGancho(0.00);
+			velocidadcuerda=0.000;
+		}
 	}
-}
 
-if(cubojer.getMovimiento()+velocidadcarrito < 3.4 && cubojer.getMovimiento()+velocidadcarrito>=-0.1)
-{
-	cubojer.setMovimiento(cubojer.getMovimiento()+velocidadcarrito);
-//	cout << velocidadcarrito << "cuerda" << cubojer.getGancho()<<  endl;
-	if(cubojer.getMovimiento() > 3.2 || cubojer.getMovimiento()< -0.05)
+	if(cubojer.getMovimiento()+velocidadcarrito < 3.4 && cubojer.getMovimiento()+velocidadcarrito>=-0.1)
 	{
-	//	cubojer.setGancho(0.00);
-		velocidadcarrito=0.000;
-	//	cout << velocidadcarrito<< "DEntro" << endl;
+		cubojer.setMovimiento(cubojer.getMovimiento()+velocidadcarrito);
+	//	cout << velocidadcarrito << "cuerda" << cubojer.getGancho()<<  endl;
+		if(cubojer.getMovimiento() > 3.2 || cubojer.getMovimiento()< -0.05)
+		{
+		//	cubojer.setGancho(0.00);
+			velocidadcarrito=0.000;
+		//	cout << velocidadcarrito<< "DEntro" << endl;
+		}
 	}
-}
 
-	glutPostRedisplay();
+		glutPostRedisplay();
 
 
 }
@@ -318,43 +350,51 @@ void normal_key(unsigned char Tecla1,int x,int y)
 			opcion=3; //Ajedrez
 			break;
 
-		case '1':	//Bethoven
+		case '8':
+			betpeonbar=1;
+			break;
+
+		case '9': //cambiar entre piramide y cubo
+			cupi=0;
+			betpeonbar=2;
+			break;
+		case '0':
+			cupi=1;
+			betpeonbar=3;
+			break;
+		case '1':	//Práctica 1
 			modificadorPra=1;
 			break;
 
-		case '2':	//ajedrez
+		case '2':	//Practica2
 			modificadorPra=2;
 			break;
 
-		case '3': //Barrido
+		case '3': //Practica 3
 			modificadorPra=3;
 			break;
 
-		/*case '9':	//Cubo y piramide
-			cupi=9;
-			break;
-
-		case '0':	//Bethoven
-			cupi=0;
-			break;*/
-
 			case 'O':
 				cubojer.setAngulo(cubojer.getAngulo()+15);
+			//	giro=giro+15;
 			//	angulo=angulo+15;
 				break;
 
 			case 'I':
 				cubojer.setAngulo(cubojer.getAngulo()-15);
+			//	giro=giro-15;
 				//angulo=angulo-15;
 				break;
 
 			case 'Y':
+		//	giro2=giro2+15;
 				if(cubojer.getMovimiento() < 3.4)
 					cubojer.setMovimiento(cubojer.getMovimiento()+0.2);
 			//	angulo=angulo+15;
 				break;
 
 			case 'U':
+			//giro2=giro2-15;
 				if(cubojer.getMovimiento() >-0.1)
 					cubojer.setMovimiento(cubojer.getMovimiento()-0.2);
 				//angulo=angulo-15;
@@ -390,11 +430,11 @@ void normal_key(unsigned char Tecla1,int x,int y)
 
 
 			case 'C'://disminuir velocidad cuerda
-				velocidadcuerda=velocidadcuerda-0.007;
+					velocidadcuerda=velocidadcuerda-0.007;
 				break;
 
 			case 'V'://aumentar velocidad cuerda
-				velocidadcuerda=velocidadcuerda+0.007;
+					velocidadcuerda=velocidadcuerda+0.007;
 				break;
 //velocidadcarrito
 
@@ -490,11 +530,11 @@ char modo_ejecucion=0;
 int main(int argc, char **argv)
 {
 
-	/*if(argc < 6)
+	if(argc < 6)
 	{
 		cerr << "Tienes que introducir un archivo PLY: ./practica2 <ruta archivo ply> <ruta perfil ply> <etapas> <ruta barrido ply> <numero barrido>"<< endl;
 		return -1;
-	}*/
+	}
 
 	// se llama a la inicialización de glut
 	glutInit(&argc, argv);
@@ -537,25 +577,25 @@ int main(int argc, char **argv)
 
 	//modo_ejecucion=*(argv[2]);
 	//Cargamos el modelo Ply en nuetra Estructura de datos
-/*	m.cargarModelo(argv[1]);
+	m.cargarModelo(argv[1]);
 	r.cargarModelo(argv[2]);
 	r.generarModelo(atoi(argv[3]),r.vertices);
 	b.cargarModelo(argv[4]);
-*/
+
 
 
 	///////////////////////////////////////////////////////////////
 	//////////////    Creación del barrido  ///////////////////////
 	///////////////////////////////////////////////////////////////
 
-/*	_vertex3f v0,v1,v2,v3, v4,v5,barrer;
+	_vertex3f v0,v1,v2,v3, v4,v5,barrer;
 	vector<_vertex3f> poligono;
 
 	barrer.x=0;
 	barrer.y=0;
 	barrer.z=atoi(argv[5]);
 
-	b.generarBarrido(b.vertices, barrer);*/
+	b.generarBarrido(b.vertices, barrer);
 
 	// inicio del bucle de eventos
 	glutMainLoop();

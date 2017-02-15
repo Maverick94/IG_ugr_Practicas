@@ -3,7 +3,11 @@
 //**************************************************************************
 
 #include <vector>
-#include <GL/gl.h>
+#ifdef __MACH__ // Incluimos las librerías necesarias para que funcione en OSX
+	#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
 #include "vertex.h"
 #include <stdlib.h>
 
@@ -62,9 +66,3 @@ class _piramide: public _triangulos3D
 	public:
 		_piramide(float tam=0.5, float al=0.75);
 };
-
-
-
-
-
-

@@ -1,7 +1,7 @@
 //**************************************************************************
 // Práctica 1 usando objetos
 //**************************************************************************
-
+//#include <GLUT/glut.h>
 #include <GL/glut.h>
 #include <ctype.h>
 #include <math.h>
@@ -80,7 +80,7 @@ void change_observer()
 //***************************************************************************
 
 void draw_axis()
-{	
+{
 	glDisable(GL_LIGHTING);
 	glLineWidth(2);
 	glBegin(GL_LINES);
@@ -137,7 +137,7 @@ void draw_objects()
 				else if(modificadorPra==2)
 					r.draw_solido(1.0,0,0);
 					else
-					b.draw_solido(1.0,0,0);	
+					b.draw_solido(1.0,0,0);
 				break;
 			case 3:
 				if(modificadorPra==1)
@@ -148,7 +148,7 @@ void draw_objects()
 					b.draw_solido_ajedrez(1.0,0,0,0,1.0,0);
 				break;
 		}
-	
+
 
 
 
@@ -166,7 +166,7 @@ void draw_objects()
 				r.pintarAristas(1.0,0,0,1.2);
 				break;
 			case 2:
-				r.pintarSolido(1,0,0,0);	
+				r.pintarSolido(1,0,0,0);
 				break;
 			case 3:
 				r.pintarAjedrez(1,0,0,0,1,0);
@@ -193,7 +193,7 @@ void draw_objects()
 				if(cupi==0)
 					cubo1.draw_solido(1.0,0,0);
 				else
-					pi1.draw_solido(1.0,0,0);	
+					pi1.draw_solido(1.0,0,0);
 				break;
 			case 3:
 				if(cupi==0)
@@ -283,10 +283,13 @@ void normal_key(unsigned char Tecla1,int x,int y)
 		case '2':	//ajedrez
 			modificadorPra=2;
 			break;
-		
+
 		case '3': //Barrido
 			modificadorPra=3;
 			break;
+
+			case '+':Observer_distance*=1.2;break;
+			case '-':Observer_distance/=1.2;break;
 
 		/*case '9':	//Cubo y piramide
 			cupi=9;
@@ -411,7 +414,7 @@ int main(int argc, char **argv)
 
 	// funcion de inicialización
 	initialize();
-	
+
 	//modo_ejecucion=*(argv[2]);
 	//Cargamos el modelo Ply en nuetra Estructura de datos
 	m.cargarModelo(argv[1]);

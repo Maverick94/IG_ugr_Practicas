@@ -224,110 +224,129 @@ _cubo::_cubo(float tam)
 	caras.push_back(c11);
 	caras.push_back(c12);*/
 
-  _vertex3f nodo;
+  _vertex3f v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12;
   //v0
-    nodo.x=-tam/2.0;
-    nodo.y=-tam/2.0;
-    nodo.z=-tam/2.0;
-    vertices.push_back(nodo);
+    v0.x=-tam/2.0;
+    v0.y=-tam/2.0;
+    v0.z=-tam/2.0;
+
     //v1
-    nodo.x=tam/2.0;
-    nodo.y=-tam/2.0;
-    nodo.z=-tam/2.0;
-    vertices.push_back(nodo);
+    v1.x=tam/2.0;
+    v1.y=-tam/2.0;
+    v1.z=-tam/2.0;
+
     //v2
-    nodo.x=tam/2.0;
-    nodo.y=tam/2.0;
-    nodo.z=-tam/2.0;
-    vertices.push_back(nodo);
+    v2.x=tam/2.0;
+    v2.y=tam/2.0;
+    v2.z=-tam/2.0;
+
     //v3
-    nodo.x=-tam/2.0;
-    nodo.y=tam/2.0;
-    nodo.z=-tam/2.0;
-    vertices.push_back(nodo);
+    v3.x=-tam/2.0;
+    v3.y=tam/2.0;
+    v3.z=-tam/2.0;
+
     //v4
-    nodo.x=-tam/2.0;
-    nodo.y=-tam/2.0;
-    nodo.z=tam/2.0;
-    vertices.push_back(nodo);
+    v4.x=-tam/2.0;
+    v4.y=-tam/2.0;
+    v4.z=tam/2.0;
+
     //v5
-    nodo.x=tam/2.0;
-    nodo.y=-tam/2.0;
-    nodo.z=tam/2.0;
-    vertices.push_back(nodo);
+    v5.x=tam/2.0;
+    v5.y=-tam/2.0;
+    v5.z=tam/2.0;
+
    //v6
-    nodo.x=tam/2.0;
-    nodo.y=tam/2.0;
-    nodo.z=tam/2.0;
-    vertices.push_back(nodo);
+    v6.x=tam/2.0;
+    v6.y=tam/2.0;
+    v6.z=tam/2.0;
+
     //v7
-    nodo.x=-tam/2.0;
-    nodo.y=tam/2.0;
-    nodo.z=tam/2.0;
-    vertices.push_back(nodo);
+    v7.x=-tam/2.0;
+    v7.y=tam/2.0;
+    v7.z=tam/2.0;
+
+		vertices.push_back(v0);
+		vertices.push_back(v1);
+		vertices.push_back(v2);
+		vertices.push_back(v3);
+		vertices.push_back(v4);
+		vertices.push_back(v5);
+		vertices.push_back(v6);
+		vertices.push_back(v7);
 
 
-    _vertex3i face;
+    _vertex3i f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12;
     //cara 0 Fondo horario
-      face.x=1;
-      face.y=0;
-      face.z=3;
-      caras.push_back(face);
+      f1.x=1;
+      f1.y=0;
+      f1.z=3;
+
       //cara 1 fondo horario
-      face.x=1;
-      face.y=3;
-      face.z=2;
-      caras.push_back(face);
+      f2.x=1;
+      f2.y=3;
+      f2.z=2;
+
       //cara2 frontal antihorario
-      face.x=4;
-      face.y=5;
-      face.z=6;
-      caras.push_back(face);
+      f3.x=4;
+      f3.y=5;
+      f3.z=6;
+
       //cara3 frontal antihorario
-      face.x=4;
-      face.y=6;
-      face.z=7;
-      caras.push_back(face);
+      f4.x=4;
+      f4.y=6;
+      f4.z=7;
+
       //cara4 lat. izq horario
-      face.x=0;
-      face.y=4;
-      face.z=7;
-      caras.push_back(face);
+      f5.x=0;
+      f5.y=4;
+      f5.z=7;
+
       //caras5 lat. izq horario
-      face.x=0;
-      face.y=7;
-      face.z=3;
-      caras.push_back(face);
+      f6.x=0;
+      f6.y=7;
+      f6.z=3;
+
       //caras6 lat.dcho antihorario
-      face.x=1;
-      face.y=2;
-      face.z=5;
-      caras.push_back(face);
+      f7.x=1;
+      f7.y=2;
+      f7.z=5;
+
       //caras7 lat. dcho antihorario
-      face.x=5;
-      face.y=2;
-      face.z=6;
-      caras.push_back(face);
+      f8.x=5;
+      f8.y=2;
+      f8.z=6;
+
       //caras8 sup antihorario
-      face.x=7;
-      face.y=6;
-      face.z=2;
-      caras.push_back(face);
+      f9.x=7;
+      f9.y=6;
+      f9.z=2;
+
       //caras9 sup antihorario
-      face.x=7;
-      face.y=2;
-      face.z=3;
-      caras.push_back(face);
+      f10.x=7;
+      f10.y=2;
+      f10.z=3;
+
       //caras10 antihorario
-      face.x=0;
-      face.y=1;
-      face.z=5;
-      caras.push_back(face);
+      f11.x=0;
+      f11.y=1;
+      f11.z=5;
+
       //caras11 inf antihorario
-      face.x=4;
-      face.y=0;
-      face.z=5;
-      caras.push_back(face);
+      f12.x=4;
+      f12.y=0;
+      f12.z=5;
+      caras.push_back(f1);
+			caras.push_back(f2);
+			caras.push_back(f3);
+			caras.push_back(f4);
+			caras.push_back(f5);
+			caras.push_back(f6);
+			caras.push_back(f7);
+			caras.push_back(f8);
+			caras.push_back(f9);
+			caras.push_back(f10);
+			caras.push_back(f11);
+			caras.push_back(f12);
 }
 
 
@@ -723,14 +742,8 @@ modeloJerarquico::modeloJerarquico()
 
 modeloJerarquico::modeloJerarquico(int tam)//: pira(tam)
 {
-	/*_cubo aux(tam);
-	_piramide aux2(tam,2);
-	cubo=aux;
-	pira=aux2;*/
-
 	cubo = new _cubo(tam);
 	pira = new _piramide(tam,0.5);
-
 }
 
 void modeloJerarquico::setAngulo(int angulo)
@@ -772,7 +785,7 @@ void modeloJerarquico::pintarModelo()
 			//Base
 			glPushMatrix();
 		  	glScalef(1,0.2,1);
-       	cubo->draw_solido(1,0,0);
+       	cubo->draw_solido(0.8,0,0);
 		  glPopMatrix();
 
 			//SOPORTE
@@ -827,7 +840,7 @@ void modeloJerarquico::pintarModelo()
 			glPushMatrix();
 				glTranslatef(0,4.2,0);
 				glScalef(0.5,0.2,0.5);
-				cubo->draw_solido(1,0,0);
+				cubo->draw_solido(1,0.7,0);
 			glPopMatrix();
 
 			//piramide
@@ -836,7 +849,7 @@ void modeloJerarquico::pintarModelo()
 				glRotatef(angulo,0,1,0);
 				glScalef(0.5,1.2,0.5);
 
-				pira->draw_solido(0,0,1);
+				pira->draw_solido(0.8,0,0);
 			glPopMatrix();
 
 		glPopMatrix();
@@ -850,8 +863,6 @@ void modeloJerarquico::pintarModelo()
 
 
 			glPushMatrix();
-				//glTranslatef(0,4.1,0.7+mov_caja);
-			//	glRotatef(90,1,0,0);
 				glScalef(0.3,0.3,0.3);
 				cubo->draw_solido(0.8,0,0);
 			glPopMatrix();
@@ -859,125 +870,11 @@ void modeloJerarquico::pintarModelo()
 
 			//Cuerda de la grua
 			glPushMatrix();
-				//glTranslatef(0,-0.6,0);
-
 				glScalef(0.1,1+gancho,0.1);
-				glTranslatef(0,-0.5,0); //que me estas contando?
+				glTranslatef(0,-0.5,0);
 				cubo->draw_solido(0.8,0,0);
 			glPopMatrix();
-				//glRotatef(90,1,0,0);
-
-
-
-
-
-
 
 	glPopMatrix();
-
-
-//     //Base de la grua
-//   glPushMatrix();
-//       glScalef(1,0.2,1);
-//       cubo->draw_solido(1,0,0);
-//     glPopMatrix();
-//
-//     //Palo principal
-//
-//    for(int i=0; i<4; i++)
-//     {
-//       glPushMatrix();
-//           glTranslatef(0,0.6+i,0);
-//           glScalef(0.5,1,0.5);
-//           cubo->draw_aristas(1,0.7,0,1);
-//       glPopMatrix();
-//     }
-//
-// 		//Intercalacion entre palo principal y el controlar
-//
-// 		glPushMatrix();
-// 			glTranslatef(0,4.2,0);
-// 			glScalef(0.5,0.2,0.5);
-// 			cubo->draw_solido(1,0,0);
-// 		glPopMatrix();
-//
-// 		glPushMatrix();
-//
-//
-// 			glTranslatef(0,4.8,0);
-// 			glRotatef(angulo,0,1,0);
-// 			glScalef(0.5,1.2,0.5);
-//
-// 			pira->draw_solido(0,0,1);
-// 		glPopMatrix();
-//
-//
-// 		//Palo cruzado.
-// 		for(int i=0; i<4; i++)
-// 		{
-// 			glPushMatrix();
-// 					glRotatef(angulo,0,1,0);
-// 					glTranslatef(0,4.4,0.7+i);
-//
-// 					glRotatef(90,1,0,0);
-// 					glScalef(0.3,1,0.3);
-// 					cubo->draw_aristas(1,0.7,0,1);
-// 			glPopMatrix();
-// 		}
-//
-// 		glPushMatrix();
-// 				glRotatef(angulo,0,1,0);
-// 				glTranslatef(0,4.4,4.5);
-//
-// 				glRotatef(90,1,0,0);
-// 				glScalef(0.3,0.7,0.3);
-// 				pira->draw_aristas(1,0.7,0,1);
-// 		glPopMatrix();
-//
-// 		//Compensador
-// 		glPushMatrix();
-// 				glRotatef(angulo,0,1,0);
-// 				glTranslatef(0,4.4,-0.7);
-// 				glRotatef(90,1,0,0);
-// 				glScalef(0.3,1,0.3);
-// 				cubo->draw_aristas(1,0.7,0,1);
-// 		glPopMatrix();
-//
-// 		glPushMatrix();
-// 			  glRotatef(angulo,0,1,0);
-// 				glTranslatef(0,4.4,-1.3);
-// 				glScalef(0.6,0.8,0.6);
-// 				cubo->draw_solido(0.8,0,0);
-// 		glPopMatrix();
-//
-//
-// 		//Carril de la grua.
-//
-// 		glPushMatrix();
-// 			glRotatef(angulo,0,1,0);
-// 			glTranslatef(0,4.1,0.7+mov_caja);
-// 			glRotatef(90,1,0,0);
-// 			glScalef(0.3,0.3,0.3);
-// 			cubo->draw_solido(0.8,0,0);
-// 		glPopMatrix();
-//
-//
-// 		//Cuerda de la grua
-//
-//
-// cout << gancho << endl;
-//
-//
-// 		glPushMatrix();
-// 		//int reescalar = gancho + 0.2;
-// 			glRotatef(angulo,0,1,0);
-// 			glTranslatef(0,3.6-gancho,0.7+mov_caja);
-// 			glPushMatrix();
-// 				glScalef(0.1,1+gancho,0.1);
-// 				cubo->draw_solido(0.8,0,0);
-// 			glPopMatrix();
-// 			//glRotatef(90,1,0,0);
-//
-// 		glPopMatrix();
 
 }

@@ -3,6 +3,7 @@
 //**************************************************************************
 
 #include <vector>
+//#include <GLUT/glut.h>
 #include <GL/gl.h>
 #include "vertex.h"
 #include <stdlib.h>
@@ -69,7 +70,7 @@ class _piramide: public _triangulos3D
 //*************************************************************************
 class modeloPly: public _triangulos3D
 {
-	
+
 	public:
 
 		modeloPly();
@@ -113,7 +114,3 @@ class modeloPlyBarrido: public modeloPly
 
 
 };
-
-
-
-

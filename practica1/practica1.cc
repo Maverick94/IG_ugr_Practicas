@@ -2,7 +2,12 @@
 // Práctica 1 usando objetos
 //**************************************************************************
 
+#ifdef __MACH__ // Incluimos las librerías necesarias para que funcione en OSX
+	#include <GLUT/glut.h>
+#else
 #include <GL/glut.h>
+#endif
+
 #include <ctype.h>
 #include <math.h>
 #include <vector>
@@ -73,7 +78,7 @@ void change_observer()
 //***************************************************************************
 
 void draw_axis()
-{	
+{
 	glDisable(GL_LIGHTING);
 	glLineWidth(2);
 	glBegin(GL_LINES);
@@ -99,7 +104,7 @@ void draw_axis()
 
 void draw_objects()
 {
-	
+
 	switch(opcion)
 	{
 		case 0:
@@ -118,7 +123,7 @@ void draw_objects()
 			if(modificador==1)
 				cubo1.draw_solido(1.0,0,0);
 			else
-				pi1.draw_solido(1.0,0,0);	
+				pi1.draw_solido(1.0,0,0);
 			break;
 		case 3:
 			if(modificador==1)
