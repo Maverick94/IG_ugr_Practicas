@@ -4,7 +4,7 @@
 
 Prácticas desarrolladas durante el curso.
 
-####Prácticas
+#### Prácticas
 
 * [Práctica 1: Modelado y visualización de objetos 3D sencillos](https://github.com/Maverick94/IG_ugr_Practicas/tree/master/practica1)
 * [Práctica 2: Modelos PLY y Poligonales](https://github.com/Maverick94/IG_ugr_Practicas/tree/master/practica2)
