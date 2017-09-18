@@ -13,7 +13,6 @@ Compilar con la orden make en el directorio de la practica.
 Cambiar entre prácticas:
 * Tecla 1--> Práctica 1
 * Tecla 2--> Práctica 2
-* Tecla 3--> Práctica 3
 
 -------------------------------------------------------------------------------------------
 ### Práctica 1:
