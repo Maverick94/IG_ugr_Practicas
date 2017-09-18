@@ -16,36 +16,36 @@ Cambiar entre prácticas:
 * Tecla 3--> Práctica 3
 
 -------------------------------------------------------------------------------------------
-###Práctica 1:
+### Práctica 1:
 
-####Cambiar de figura:
+#### Cambiar de figura:
 * Tecla 9--> Cubo
 * Tecla 0--> Pirámide
 
-####Cambiar entre los modos:
+#### Cambiar entre los modos:
 * Tecla p--> Vértices
 * Tecla e--> Alambre
 * Tecla s--> Solido
 * Tecla a--> Ajedrez
 
 --------------------------------------------------------------------------------------------
-###Práctica 2:
+### Práctica 2:
 
-####Cambiar de figura:
+#### Cambiar de figura:
 * Tecla 8-->Beethoven
 * Tecla 9--> Peón de ajedrez (revolución)
 * Tecla 0--> Polígono (Barrido)
 
-####Cambiar entre los modos:
+#### Cambiar entre los modos:
 * Tecla p--> Vértices
 * Tecla e--> Alambre
 * Tecla s--> Solido
 * Tecla a--> Ajedrez
 -----------------------------------------------------------------------------------------------
 
-###Práctica 3:
+### Práctica 3:
 
-####Parte Obligatoria:
+#### Parte Obligatoria:
 * Tecla o-->Giro de grúa antihorario
 * Tecla i-->Giro de grúa horario
 * Tecla y-->Desplazar carro hacia exterior
@@ -53,7 +53,7 @@ Cambiar entre prácticas:
 * Tecla t-->Bajar cuerda
 * Tecla r-->Subir cuerda
 
-####Parte Opcional
+#### Parte Opcional
 * Tecla z-->Giro de grúa antihorario automático
 * Tecla x-->Giro de grúa horario automático
 * Tecla c-->Subir cuerda automático
