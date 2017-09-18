@@ -16,27 +16,27 @@ Cambiar entre prácticas:
 * Tecla 3--> Práctica 3
 
 -------------------------------------------------------------------------------------------
-###Práctica 1:
+### Práctica 1:
 
-####Cambiar de figura:
+#### Cambiar de figura:
 * Tecla 9--> Cubo
 * Tecla 0--> Pirámide
 
-####Cambiar entre los modos:
+#### Cambiar entre los modos:
 * Tecla p--> Vértices
 * Tecla e--> Alambre
 * Tecla s--> Solido
 * Tecla a--> Ajedrez
 
 --------------------------------------------------------------------------------------------
-###Práctica 2:
+### Práctica 2:
 
-####Cambiar de figura:
+#### Cambiar de figura:
 * Tecla 8-->Beethoven
 * Tecla 9--> Peón de ajedrez (revolución)
 * Tecla 0--> Polígono (Barrido)
 
-####Cambiar entre los modos:
+#### Cambiar entre los modos:
 * Tecla p--> Vértices
 * Tecla e--> Alambre
 * Tecla s--> Solido
